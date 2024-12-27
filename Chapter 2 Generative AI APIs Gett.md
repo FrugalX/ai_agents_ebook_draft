@@ -204,3 +204,6 @@ This simple example demonstrates how to send a message to the AI and receive a r
 
 By completing this tutorial, you’ve made your first step in interacting with Generative AI APIs!
 
+
+[Previous: Chapter 1](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Chapter%201%20Introduction.md) | [Next: Chapter 3](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Chapter%203%20Building%20a%20Single-Agent.md)
+

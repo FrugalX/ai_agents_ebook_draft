@@ -113,3 +113,8 @@ MAS is ideal for scenarios where:
 
 By understanding MAS, you unlock the potential for building robust, scalable, and collaborative AI-driven solutions.
 
+---
+
+[Previous: Chapter 3](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Chapter%203%20Building%20a%20Single-Agent.md) | [Next: Chapter 5](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Chapter%205%20Autonomous%20and%20Self-Orc.md)
+
+

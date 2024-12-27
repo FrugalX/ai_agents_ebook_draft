@@ -76,3 +76,8 @@ Generative AI agents represent a transformative technology with applications acr
 
 By mastering these concepts, you will gain the tools to harness AI for innovation and efficiency.
 
+---
+
+[Next: Chapter 2](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Chapter%202%20Generative%20AI%20APIs%20Gett.md)
+
+

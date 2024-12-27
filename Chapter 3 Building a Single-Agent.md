@@ -130,3 +130,7 @@ generate_story("Once upon a time in a futuristic city...")
 
 By following these principles, you can design effective and user-friendly AI agents!
 
+---
+
+[Previous: Chapter 2](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Chapter%202%20Generative%20AI%20APIs%20Gett.md) | [Next: Chapter 4](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Chapter%204%20Multi-Agent%20Systems%20Col.md)
+

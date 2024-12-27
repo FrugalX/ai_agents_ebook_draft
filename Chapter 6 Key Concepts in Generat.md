@@ -90,3 +90,7 @@ Errors are inevitable in AI systems, but robust error-handling strategies can mi
 
 By mastering these key concepts, students can build more reliable, efficient, and user-friendly generative AI agents.
 
+---
+
+[Previous: Chapter 5](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Chapter%205%20Autonomous%20and%20Self-Orc.md) | [Next: Chapter 7](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Chapter%207%20Practical%20Tutorials.md)
+

@@ -94,3 +94,7 @@ This chapter compiles a wealth of resources to help readers deepen their underst
 
 By leveraging these resources and tools, readers can embark on a deeper exploration of generative AI and multi-agent systems, fostering continuous learning and innovation.
 
+---
+
+[Previous: Chapter 9](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Chapter%209%20Future%20Trends%20and%20Appli.md) | [Next: Appendices](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Appendices.md)
+

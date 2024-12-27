@@ -85,3 +85,8 @@ A resume-screening AI may favor male candidates due to historical data biases. D
 
 By understanding the ethical, privacy, and technical challenges, developers can ensure that generative AI is used responsibly and equitably to benefit society as a whole.
 
+---
+
+[Previous: Chapter 7](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Chapter%207%20Practical%20Tutorials.md) | [Next: Chapter 9](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Chapter%209%20Future%20Trends%20and%20Appli.md)
+
+

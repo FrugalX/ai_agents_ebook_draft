@@ -2,7 +2,7 @@
 
 ## **2.1 Overview of OpenAI, Gemini, and Llama APIs**
 
-Generative AI APIs provide easy access to powerful AI models for generating text, images, and other outputs. Here is an overview of the key APIs:
+Generative AI APIs provide easy access to powerful AI models for generating text, images, and other outputs. Here is an overview of some of the key APIs:
 
 ### **OpenAI API**
 
@@ -21,6 +21,8 @@ Generative AI APIs provide easy access to powerful AI models for generating text
 - **Main Features**: Meta’s Llama models, designed for high performance in various NLP tasks.
 - **Use Cases**: Efficient deployment of text generation models, research-oriented applications.
 - **Documentation**: API details with open-source deployment guides are accessible.
+
+The above-mentioned LLMs are not an exhaustive list. There are many other notable LLMs, such as Claude by Anthropic, Grok by xAI, and others.
 
 ---
 
@@ -162,38 +164,6 @@ response = openai.ChatCompletion.create(
 )
 
 print(response["choices"][0]["message"]["content"])
-```
-
----
-
-### **Using Gemini API**
-
-#### **JavaScript Example**:
-```javascript
-// Placeholder for Gemini API JavaScript integration
-// Refer to Google Gemini’s API documentation for the latest updates.
-```
-
-#### **Python Example**:
-```python
-# Placeholder for Gemini API Python integration
-# Refer to Google Gemini’s API documentation for the latest updates.
-```
-
----
-
-### **Using Llama API**
-
-#### **JavaScript Example**:
-```javascript
-// Placeholder for Llama API JavaScript integration
-// Follow Meta’s guidance for setting up and calling their API.
-```
-
-#### **Python Example**:
-```python
-# Placeholder for Llama API Python integration
-# Follow Meta’s instructions for accessing Llama models.
 ```
 
 ---

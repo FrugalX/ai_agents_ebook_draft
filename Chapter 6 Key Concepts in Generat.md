@@ -36,10 +36,17 @@ AI agents use memory and context to maintain coherence across interactions. Thes
 2. **Long-Term Memory**:
    - Retains information across sessions for continuity.
    - Example: A virtual assistant recalling a user’s favorite music genre.
+   - Implemented via solutions like **LangChain Memory** and **Weaviate vector databases**.
+
+### **Retrieval-Augmented Generation (RAG):**
+- Enhances AI responses by retrieving relevant data from external knowledge sources.
+- Improves accuracy and reduces hallucinations.
+- Example: A research assistant using **RAG** to pull updated scientific papers before answering a query.
 
 ### **Implementing Context Awareness:**
 - Maintain a history of interactions (e.g., in JSON format).
 - Use this history to enrich prompts or model inputs.
+- Utilize **vector databases** like **Weaviate or Pinecone** for scalable retrieval of past knowledge.
 
 ---
 
@@ -59,6 +66,8 @@ State management ensures that AI agents handle multi-turn interactions effective
    - Example: States for a travel agent: "Greeting," "Flight Booking," "Hotel Booking."
 2. **Session Tokens:**
    - Use unique tokens to link user interactions within a session.
+3. **Memory Integration:**
+   - Use **LangChain Memory** or **vector databases** for persistent, scalable state retention.
 
 ---
 
@@ -87,8 +96,10 @@ Errors are inevitable in AI systems, but robust error-handling strategies can mi
    - Example: Retrying API calls after network interruptions.
 4. **Logging and Monitoring:**
    - Track errors to identify and resolve recurring issues.
+   - Implement observability tools like **OpenAI's event-driven error handling**, **Sentry**, or **Datadog** to monitor and respond to failures in real time.
 
-By mastering these key concepts, students can build more reliable, efficient, and user-friendly generative AI agents.
+By mastering these key concepts, developers can build more **robust, scalable, and intelligent** generative AI agents that **adapt dynamically to new challenges**.
+
 
 ---
 

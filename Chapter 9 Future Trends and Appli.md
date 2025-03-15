@@ -19,6 +19,13 @@ As multi-agent systems grow in complexity, the demand for transparency and expla
 ### **Human-Agent Collaboration**
 The focus is shifting toward systems where humans and AI agents work seamlessly together. Applications include collaborative design tools, healthcare diagnostics, and educational platforms.
 
+### **AutoML and Self-Improving AI Agents**
+AutoML and self-improving AI agents are enabling models to evolve and optimize themselves without human intervention. These agents use reinforcement learning, transfer learning, and fine-tuning strategies to adapt to new tasks over time.
+
+#### **Key Technologies:**
+- **Google Vertex AI & Microsoft AutoML** for automated model training.
+- **Self-learning Agents** that refine their knowledge through experience.
+
 ---
 
 ## **9.2 Integration with Other Technologies (IoT, Robotics, etc.)**
@@ -36,6 +43,8 @@ Combining generative AI with robotics enhances capabilities in areas such as per
 #### **Applications:**
 - **Autonomous Vehicles:** Multi-agent systems coordinating traffic flow to improve safety and efficiency.
 - **Healthcare Robots:** Generative AI enabling personalized care through better interaction and understanding.
+- **Google’s AI-Driven Robotics:** Research efforts integrating generative AI for real-time adaptability in robotic applications.
+- **Tesla Optimus:** AI-powered humanoid robot advancing factory automation and human-AI collaboration.
 
 ### **AR/VR Integration**
 Augmented and virtual reality platforms are leveraging generative AI for real-time content generation, immersive experiences, and virtual assistants.
@@ -74,6 +83,7 @@ The convergence of technologies will create novel roles, such as AI ecosystem ma
 ---
 
 The future of generative AI and multi-agent systems is full of possibilities. By understanding emerging trends, exploring integrations with other technologies, and preparing for evolving career paths, individuals and organizations can position themselves at the forefront of this transformative era.
+
 
 ---
 

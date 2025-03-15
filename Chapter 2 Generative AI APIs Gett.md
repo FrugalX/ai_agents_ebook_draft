@@ -1,14 +1,15 @@
 # Chapter 2: Generative AI APIs: Getting Started
 
-## **2.1 Overview of OpenAI, Gemini, and Llama APIs**
+## **2.1 Overview of OpenAI, Gemini, Claude, Llama, and Mistral APIs**
 
-Generative AI APIs provide easy access to powerful AI models for generating text, images, and other outputs. Here is an overview of some of the key APIs:
+Generative AI APIs provide easy access to powerful AI models for generating text, images, and other outputs. Here is an overview of the key APIs:
 
 ### **OpenAI API**
 
 - **Main Features**: Offers access to GPT models for text generation, code assistance, and conversation.
 - **Use Cases**: Writing, summarization, coding assistance, and creative tasks.
-- **Documentation**: Comprehensive API documentation and examples available at OpenAI’s website.
+- **Assistants API**: Provides structured workflows for building agentic applications.
+- **Documentation**: Available at OpenAI’s website.
 
 ### **Gemini API**
 
@@ -16,11 +17,23 @@ Generative AI APIs provide easy access to powerful AI models for generating text
 - **Use Cases**: Cross-modal tasks such as captioning images or combining text and visuals.
 - **Documentation**: Provides tools and guides to integrate multi-modal AI into applications.
 
-### **Llama API**
+### **Claude API** (Anthropic)
 
-- **Main Features**: Meta’s Llama models, designed for high performance in various NLP tasks.
-- **Use Cases**: Efficient deployment of text generation models, research-oriented applications.
-- **Documentation**: API details with open-source deployment guides are accessible.
+- **Main Features**: Claude is designed with an emphasis on safety, reasoning, and reliability.
+- **Use Cases**: AI-assisted decision-making, conversational AI, and enterprise integrations.
+- **Documentation**: Found on Anthropic’s developer portal.
+
+### **Llama API** (Meta)
+
+- **Main Features**: Meta’s Llama models, designed for efficient NLP tasks.
+- **Use Cases**: Open-source AI deployment for research and development.
+- **Documentation**: Available through Meta’s AI research pages.
+
+### **Mistral API**
+
+- **Main Features**: Open-weight models optimized for flexible and transparent AI development.
+- **Use Cases**: Text generation, chatbot applications, research projects.
+- **Documentation**: Found on Mistral’s developer site.
 
 The above-mentioned LLMs are not an exhaustive list. There are many other notable LLMs, such as Claude by Anthropic, Grok by xAI, and others.
 

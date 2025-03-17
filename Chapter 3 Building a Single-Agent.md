@@ -126,6 +126,8 @@ geminiChatbot("Describe the future of AI agents.");
 After setting up basic agents, we can integrate memory for enhanced contextual responses using LangChain.
 
 ### Example: AI Agent with Memory Using LangChain
+
+#### Python
 ```python
 from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferMemory
@@ -139,9 +141,31 @@ print(conversation.run("What is the capital of France?"))
 print(conversation.run("And what is its population?"))
 ```
 
+#### JavaScript
+```javascript
+import { ChatOpenAI } from "@langchain/openai";
+import { ConversationChain } from "langchain/chains";
+import { ConversationBufferMemory } from "langchain/memory";
+
+const model = new ChatOpenAI({ modelName: "gpt-4-turbo", openAIApiKey: "YOUR_API_KEY" });
+const memory = new ConversationBufferMemory();
+const conversation = new ConversationChain({ llm: model, memory });
+
+async function chat() {
+    const response1 = await conversation.call({ input: "What is the capital of France?" });
+    console.log(response.content);
+
+    const followUpResponse = await conversation.call({ input: "And what is its population?" });
+    console.log(followUp.response);
+}
+
+chat();
+```
+
 ## 3.5 Example: Q&A Bot with Memory Integration
 Here's a refined chatbot that retains memory for multi-turn conversations.
 
+#### Python
 ```python
 import openai
 
@@ -161,6 +185,39 @@ class MemoryAgent:
 agent = MemoryAgent()
 print(agent.chat("Who discovered gravity?"))
 print(agent.chat("Tell me more about their work."))
+```
+
+#### JavaScript
+```javascript
+import OpenAI from 'openai';
+
+const openai = new OpenAI({ apiKey: 'YOUR_API_KEY' });
+
+class MemoryAgent {
+  constructor() {
+    this.memory = [];
+  }
+
+  async chat(userInput) {
+    this.memory.push({ role: 'user', content: userInput });
+
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4-turbo',
+      messages: this.memory,
+    });
+
+    const message = response.choices[0].message;
+    this.memory.push(message);
+
+    return message.content;
+  }
+}
+
+(async () => {
+  const agent = new MemoryAgent();
+  console.log(await agent.chat('Who discovered gravity?'));
+  console.log(await agent.chat('Tell me more about their work.'));
+})();
 ```
 
 ## 3.6 Best Practices for Single-Agent Systems

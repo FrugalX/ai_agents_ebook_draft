@@ -8,7 +8,7 @@ Generative AI APIs provide easy access to powerful AI models for generating text
 
 - **Main Features**: Offers access to GPT models for text generation, code assistance, and conversation.
 - **Use Cases**: Writing, summarization, coding assistance, and creative tasks.
-- **Assistants API**: Provides structured workflows for building agentic applications.
+- **Agents SDK & Responses API**: OpenAI has introduced the **Agents SDK** and **Responses API**, which provide more flexible and dynamic AI interactions. These tools replace the earlier Assistants API, offering improved function-calling capabilities, memory handling, and multi-agent workflows.
 - **Documentation**: Available at OpenAI’s website.
 
 ### **Gemini API**
@@ -35,8 +35,6 @@ Generative AI APIs provide easy access to powerful AI models for generating text
 - **Use Cases**: Text generation, chatbot applications, research projects.
 - **Documentation**: Found on Mistral’s developer site.
 
-The above-mentioned LLMs are not an exhaustive list. There are many other notable LLMs, such as Claude by Anthropic, Grok by xAI, and others.
-
 ---
 
 ## **2.2 How Generative AI Models Work (Simplified)**
@@ -45,147 +43,207 @@ Generative AI models are built using deep learning architectures, primarily tran
 
 1. **Training**:
 
-   - Models are trained on large datasets (text, images, etc.) to learn patterns and relationships.
-   - For example, a language model learns grammar, semantics, and context by processing billions of sentences.
+   - Models are trained on large datasets to learn patterns and relationships.
 
 2. **Generation**:
 
-   - Based on an input prompt, the model predicts the next word (or token) iteratively to form a coherent response.
-   - For images, the model predicts pixel patterns or latent features to generate visuals.
+   - Based on an input prompt, the model predicts the next word or image pattern iteratively.
 
 3. **Fine-Tuning**:
 
-   - APIs often provide ways to fine-tune models for specific tasks or industries.
+   - APIs provide fine-tuning options for specialized use cases.
 
-### Key Terms:
+### **Advanced Capabilities**:
 
-- **Token**: Smallest unit of data processed (e.g., a word or part of a word).
-- **Context Window**: The amount of input data a model can process at a time.
-- **Pre-training and Fine-tuning**: Pre-training refers to learning generic patterns; fine-tuning adapts these patterns to specific needs.
+- **Function Calling**: The Responses API can invoke external functions based on input prompts.
+- **Retrieval-Augmented Generation (RAG)**: Combines external knowledge sources with AI responses.
+- **Multi-Step Reasoning**: Enables AI to break complex queries into smaller reasoning steps.
+
+### **Diagram: Evolution from Rule-Based Systems to Autonomous AI Agents**
+
+Below is an illustrative representation of how AI has evolved over time:
+
+1. **Rule-Based Systems** → Predefined if-else logic for decision-making.
+2. **Statistical Models** → Data-driven probabilistic decision-making.
+3. **Machine Learning Models** → Models trained on data for classification and regression tasks.
+4. **Deep Learning & Transformers** → Neural networks powering generative AI and NLP.
+5. **Autonomous AI Agents** → AI-powered workflows, multi-agent collaboration, and function-calling.
+
+*(Insert a visual diagram here showing the progression from rule-based systems to fully autonomous AI agents.)*
 
 ---
 
 ## **2.3 Setting Up Your Environment**
 
-To get started, you’ll need to set up your programming environment. Here’s how:
-
 ### **JavaScript: Basics and Setting Up Node.js**
 
 1. **Install Node.js**:
 
-   - Download from [Node.js official website](https://nodejs.org) and install.
-   - Verify installation:
-     ```bash
-     node -v
-     npm -v
-     ```
+   ```bash
+   node -v
+   npm -v
+   ```
 
 2. **Install Required Libraries**:
 
-   - For OpenAI API, use:
-     ```bash
-     npm install openai
-     ```
-
-   - For Gemini API, refer to Google’s official multi-modal API library (once available).
-
-   - For Llama API, check Meta’s official distribution for JavaScript integration tools.
-
-3. **Basic Syntax**:
-
-   - Example of JavaScript basics:
-     ```javascript
-     const message = "Hello, Generative AI!";
-     console.log(message);
-     ```
+   ```bash
+   npm install openai anthropic mistral google-generative-ai
+   ```
 
 ### **Python: Basics and Installing Required Libraries**
 
 1. **Install Python**:
 
-   - Download from [Python.org](https://www.python.org/) and install.
-   - Verify installation:
-     ```bash
-     python --version
-     pip --version
-     ```
+   ```bash
+   python --version
+   pip --version
+   ```
 
 2. **Install Required Libraries**:
 
-   - For OpenAI API, use:
-     ```bash
-     pip install openai
-     ```
-
-   - For Gemini API, consult Google’s Python SDK for installation guidance.
-
-   - For Llama API, follow Meta’s instructions for Python library setup.
-
-3. **Basic Syntax**:
-
-   - Example of Python basics:
-     ```python
-     message = "Hello, Generative AI!"
-     print(message)
-     ```
+   ```bash
+   pip install openai anthropic mistral google-generative-ai
+   ```
 
 ---
 
+
 ## **2.4 Your First Generative AI API Call**
 
-### **Using OpenAI’s ChatGPT API**
-
-Here’s how to make your first API call using OpenAI’s ChatGPT model:
-
-#### **JavaScript Example**:
-
-```javascript
-const { Configuration, OpenAIApi } = require("openai");
-
-const configuration = new Configuration({
-  apiKey: "YOUR_API_KEY",
-});
-
-const openai = new OpenAIApi(configuration);
-
-async function generateResponse() {
-  const response = await openai.createChatCompletion({
-    model: "gpt-4",
-    messages: [
-      { role: "user", content: "Hello AI!" },
-    ],
-  });
-
-  console.log(response.data.choices[0].message.content);
-}
-
-generateResponse();
-```
+### **Using OpenAI’s Responses API with Function Calling**
 
 #### **Python Example**:
 
 ```python
 import openai
-
 openai.api_key = "YOUR_API_KEY"
 
 response = openai.ChatCompletion.create(
-    model="gpt-4",
+    model="gpt-4-turbo",
     messages=[
-        {"role": "user", "content": "Hello AI!"}
+        {"role": "system", "content": "You are an assistant that provides weather information."},
+        {"role": "user", "content": "What's the weather like in New York?"}
     ]
 )
-
 print(response["choices"][0]["message"]["content"])
+```
+
+#### **JavaScript Example**:
+
+```javascript
+import { OpenAI } from "openai";
+const openai = new OpenAI({ apiKey: "YOUR_API_KEY" });
+
+async function getResponse() {
+    const response = await openai.chat.completions.create({
+        model: "gpt-4-turbo",
+        messages: [
+            { role: "system", content: "You are an assistant that provides weather information." },
+            { role: "user", content: "What's the weather like in New York?" }
+        ]
+    });
+    console.log(response.choices[0].message.content);
+}
+getResponse();
+```
+
+### **Using Claude API**
+
+#### **Python Example**:
+
+```python
+import anthropic
+client = anthropic.Anthropic(api_key="YOUR_API_KEY")
+
+response = client.messages.create(
+    model="claude-3",
+    messages=[{"role": "user", "content": "Summarize this article."}]
+)
+print(response["content"])
+```
+
+#### **JavaScript Example**:
+
+```javascript
+import { Anthropic } from "anthropic";
+const anthropic = new Anthropic({ apiKey: "YOUR_API_KEY" });
+
+async function getClaudeResponse() {
+    const response = await anthropic.messages.create({
+        model: "claude-3",
+        messages: [{ role: "user", content: "Summarize this article." }]
+    });
+    console.log(response.content);
+}
+getClaudeResponse();
+```
+
+### **Using Gemini API**
+
+#### **Python Example**:
+
+```python
+from google.generativeai import GenerativeModel
+import google.generativeai as genai
+
+genai.configure(api_key="YOUR_API_KEY")
+model = GenerativeModel("gemini-pro")
+response = model.generate_content("Explain quantum mechanics.")
+print(response.text)
+```
+
+#### **JavaScript Example**:
+
+```javascript
+import { GoogleGenerativeAI } from "@google/generative-ai";
+const genAI = new GoogleGenerativeAI("YOUR_API_KEY");
+
+async function getGeminiResponse() {
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const result = await model.generateContent("Explain quantum mechanics.");
+    console.log(result.response.text());
+}
+getGeminiResponse();
+```
+
+### **Using Mistral API**
+
+#### **Python Example**:
+
+```python
+import requests
+
+API_KEY = "YOUR_API_KEY"
+headers = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
+data = {"model": "mistral-large", "messages": [{"role": "user", "content": "Describe the Eiffel Tower."}]}
+response = requests.post("https://api.mistral.ai/v1/chat/completions", headers=headers, json=data)
+print(response.json()["choices"][0]["message"]["content"])
+```
+
+#### **JavaScript Example**:
+
+```javascript
+import axios from "axios";
+const API_KEY = "YOUR_API_KEY";
+
+async function getMistralResponse() {
+    const response = await axios.post("https://api.mistral.ai/v1/chat/completions", {
+        model: "mistral-large",
+        messages: [{ role: "user", content: "Describe the Eiffel Tower." }]
+    }, {
+        headers: { Authorization: `Bearer ${API_KEY}`, "Content-Type": "application/json" }
+    });
+    console.log(response.data.choices[0].message.content);
+}
+getMistralResponse();
 ```
 
 ---
 
-### **A "Hello AI" Example**
+## **Conclusion**
 
-This simple example demonstrates how to send a message to the AI and receive a response. Replace `YOUR_API_KEY` with your actual API key.
+Generative AI APIs have revolutionized the way developers integrate advanced AI capabilities into their applications. By leveraging APIs like OpenAI’s Agents SDK & Responses API, Google’s Gemini, Anthropic’s Claude, Meta’s Llama, and Mistral, developers can build sophisticated AI-driven solutions across various domains. As these APIs continue to evolve, keeping up with best practices—such as fine-tuning models, implementing function calling, and optimizing multi-agent workflows—will be essential. The next chapters will dive deeper into practical implementations, ensuring you can confidently apply these AI tools in real-world scenarios.
 
-By completing this tutorial, you’ve made your first step in interacting with Generative AI APIs!
 
 ---
 

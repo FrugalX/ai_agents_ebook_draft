@@ -1,191 +1,177 @@
 # Chapter 3: Building a Single-Agent System
 
-## **3.1 What is a Single-Agent System?**
+## 3.1 What is a Single-Agent System?
+A single-agent system is an AI-powered entity designed to operate independently, making decisions based on input data, context, and learned experiences. Unlike multi-agent systems, a single-agent system works autonomously without coordinating with other agents.
 
-A single-agent system consists of one autonomous AI entity that perceives its environment and acts upon it to achieve specific goals. Unlike multi-agent systems, which involve multiple agents working together or competing, a single-agent system operates independently.
+### Applications
+Single-agent systems are widely used in various domains:
+- **AI Chatbots**: Virtual assistants automate customer interactions, providing instant responses to queries, improving customer satisfaction, and reducing human workload.
+- **Recommendation Systems**: Personalized recommendations enhance user experience on streaming platforms and e-commerce by suggesting relevant content or products.
+- **Autonomous Task Execution**: Virtual assistants automate repetitive tasks like scheduling meetings, managing calendars, and summarizing documents.
 
-### **Key Characteristics**:
-- **Autonomy**: Operates without human intervention.
-- **Reactivity**: Responds to inputs or changes in its environment.
-- **Goal-Oriented**: Designed to achieve specific objectives.
+## 3.2 Anatomy of an AI Agent
+A single-agent AI system typically consists of the following components:
+- **Input Handling**: Accepts user queries, sensor data, or API calls.
+- **Processing Unit**: Uses models like GPT-4, Claude, or Gemini to process input and generate responses.
+- **Memory & Context Awareness**: Maintains conversation history and contextual understanding.
+- **Output Handling**: Returns responses through text, voice, or structured data formats.
 
-### **Applications**:
-- Chatbots
-- Recommender systems
-- Game-playing agents
+## 3.3 Implementing a Basic Single-Agent System
+Let’s first build basic AI agents using OpenAI’s Agents SDK, Gemini API, and Claude’s system message approach.
 
----
+### Example 1: Basic AI Chatbot using OpenAI Agents SDK
 
-## **3.2 Anatomy of an AI Agent: Input, Process, and Output**
-
-To build a single-agent system, it is essential to understand its basic structure:
-
-### **1. Input**:
-- The agent perceives the environment through sensors or input mechanisms.
-- Examples: User queries, real-time data streams, or pre-defined datasets.
-
-### **2. Process**:
-- The agent processes inputs using algorithms, AI models, or rule-based systems.
-- Examples: Generating responses, classifying inputs, or performing calculations.
-
-### **3. Output**:
-- The agent produces actions or responses based on its processing.
-- Examples: Text responses, recommendations, or visual outputs.
-
-### **Diagram**:
-```
-Input (e.g., user query) → Processing (e.g., AI model) → Output (e.g., generated response)
-```
-
----
-
-## **3.3 Incorporating Memory and Persistence**
-
-AI agents benefit greatly from memory and persistence, enabling them to recall previous interactions and improve responses over time. This is particularly useful for chatbots, recommendation engines, and autonomous assistants.
-
-### **Short-Term vs. Long-Term Memory**
-- **Short-Term Memory**: Stores temporary conversation history within a session.
-- **Long-Term Memory**: Uses external databases to persist knowledge across interactions.
-
-### **Implementing Memory in AI Agents**
-
-#### **1. Using In-Memory Storage for Short-Term Memory (JavaScript Example)**
-
-```javascript
-class AIAgent {
-  constructor() {
-    this.memory = [];
-  }
-
-  remember(input, response) {
-    this.memory.push({ input, response });
-    if (this.memory.length > 10) this.memory.shift(); // Limit memory size
-  }
-
-  retrieve() {
-    return this.memory;
-  }
-}
-
-const agent = new AIAgent();
-agent.remember("Hello", "Hi there!");
-console.log(agent.retrieve());
-```
-
-#### **2. Using a Vector Database for Long-Term Memory (Python Example with Pinecone)**
-
+#### Python
 ```python
-import pinecone
-import openai
+from openai import OpenAI
 
-pinecone.init(api_key="YOUR_PINECONE_API_KEY", environment="us-west1-gcp")
-index = pinecone.Index("ai-agent-memory")
+oai = OpenAI(api_key="YOUR_API_KEY")
 
-def store_memory(user_input, ai_response):
-    vector = openai.Embedding.create(input=user_input, model="text-embedding-ada-002")["data"][0]["embedding"]
-    index.upsert([(user_input, vector, {"response": ai_response})])
-
-store_memory("What is AI?", "AI stands for Artificial Intelligence.")
-```
-
-Using memory in AI agents helps improve contextual understanding and enables more dynamic, interactive experiences.
-
----
-
-## **3.4 Example: A Q&A Bot with JavaScript**
-
-Let’s build a simple Q&A bot using OpenAI’s API in JavaScript:
-
-### **Code Example**:
-
-```javascript
-const { Configuration, OpenAIApi } = require("openai");
-
-const configuration = new Configuration({
-  apiKey: "YOUR_API_KEY",
-});
-
-const openai = new OpenAIApi(configuration);
-
-async function askQuestion(question) {
-  const response = await openai.createChatCompletion({
-    model: "gpt-4",
-    messages: [
-      { role: "user", content: question },
-    ],
-  });
-
-  console.log("AI Response:", response.data.choices[0].message.content);
-}
-
-askQuestion("What is Generative AI?");
-```
-
-### **How It Works**:
-1. The `askQuestion` function sends a user’s query to the OpenAI API.
-2. The API processes the query and returns a response.
-3. The bot displays the response in the console.
-
----
-
-## **3.5 Example: A Creative Story Generator with Python**
-
-Now, let’s create a story generator in Python using OpenAI’s API:
-
-### **Code Example**:
-
-```python
-import openai
-
-openai.api_key = "YOUR_API_KEY"
-
-def generate_story(prompt):
-    response = openai.ChatCompletion.create(
-        model="gpt-4",
-        messages=[
-            {"role": "user", "content": prompt}
-        ]
+def ai_chatbot(prompt):
+    response = oai.chat.completions.create(
+        model="gpt-4-turbo",
+        messages=[{"role": "system", "content": "You are an AI assistant."}, {"role": "user", "content": prompt}]
     )
+    return response.choices[0].message.content
 
-    print("Generated Story:")
-    print(response["choices"][0]["message"]["content"])
-
-# Example usage
-generate_story("Once upon a time in a futuristic city...")
+print(ai_chatbot("Tell me about AI agents."))
 ```
 
-### **How It Works**:
-1. The `generate_story` function sends a story prompt to the OpenAI API.
-2. The API generates a creative continuation of the story.
-3. The story is displayed in the console.
+#### JavaScript
+```javascript
+import { OpenAI } from "openai";
+const openai = new OpenAI({ apiKey: "YOUR_API_KEY" });
 
----
+async function aiChatbot(prompt) {
+    const response = await openai.chat.completions.create({
+        model: "gpt-4-turbo",
+        messages: [
+            { role: "system", content: "You are an AI assistant." },
+            { role: "user", content: prompt }
+        ]
+    });
+    console.log(response.choices[0].message.content);
+}
 
-## **3.6 Best Practices for Designing AI Agents**
+aichatbot("Tell me about AI agents.");
+```
 
-1. **Understand the Use Case**:
-   - Clearly define the purpose of the agent.
-   - Example: A Q&A bot should prioritize concise and accurate answers.
+### Example 2: Using Claude’s System Messages for Contextual Responses
 
-2. **Optimize for User Interaction**:
-   - Ensure that inputs are intuitive and outputs are clear.
-   - Example: Provide error messages or guidance for invalid queries.
+#### Python
+```python
+import anthropic
 
-3. **Focus on Performance**:
-   - Use lightweight models or caching mechanisms to improve response time.
+client = anthropic.Anthropic(api_key="YOUR_CLAUDE_API_KEY")
 
-4. **Include Fail-Safe Mechanisms**:
-   - Handle unexpected inputs gracefully.
-   - Example: Provide a fallback response like "I’m sorry, I don’t understand."
+def claude_chatbot(prompt):
+    response = client.messages.create(
+        model="claude-3-haiku-2024-02-25",
+        system="You are an expert AI agent providing clear explanations.",
+        messages=[{"role": "user", "content": prompt}]
+    )
+    return response.content
 
-5. **Leverage Memory for Context Awareness**:
-   - Implement short-term and long-term memory for better interaction quality.
-   - Example: Store previous user interactions to maintain conversation flow.
+print(claude_chatbot("Explain reinforcement learning."))
+```
 
-6. **Iterate and Improve**:
-   - Regularly update and fine-tune the agent based on user feedback and performance metrics.
+#### JavaScript
+```javascript
+import { Anthropic } from "anthropic";
+const anthropic = new Anthropic({ apiKey: "YOUR_CLAUDE_API_KEY" });
 
-By following these principles, you can design effective and user-friendly AI agents!
+async function claudeChatbot(prompt) {
+    const response = await anthropic.messages.create({
+        model: "claude-3-haiku-2024-02-25",
+        system: "You are an expert AI agent providing clear explanations.",
+        messages: [{ role: "user", content: prompt }]
+    });
+    console.log(response.content);
+}
+
+claudeChatbot("Explain reinforcement learning.");
+```
+
+### Example 3: Basic AI Agent using Gemini API
+
+#### Python
+```python
+import google.generativeai as genai
+
+genai.configure(api_key="YOUR_GEMINI_API_KEY")
+
+def gemini_chatbot(prompt):
+    model = genai.GenerativeModel("gemini-pro")
+    response = model.generate_content(prompt)
+    return response.text
+
+print(gemini_chatbot("Describe the future of AI agents."))
+```
+
+#### JavaScript
+```javascript
+import { GoogleGenerativeAI } from "@google/generative-ai";
+const genAI = new GoogleGenerativeAI("YOUR_GEMINI_API_KEY");
+
+async function geminiChatbot(prompt) {
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const result = await model.generateContent(prompt);
+    console.log(result.response.text());
+}
+
+geminiChatbot("Describe the future of AI agents.");
+```
+
+## 3.4 Enhancing Single Agents with Memory & Persistence
+After setting up basic agents, we can integrate memory for enhanced contextual responses using LangChain.
+
+### Example: AI Agent with Memory Using LangChain
+```python
+from langchain.chains import ConversationChain
+from langchain.memory import ConversationBufferMemory
+from langchain.chat_models import ChatOpenAI
+
+llm = ChatOpenAI(model_name="gpt-4-turbo", openai_api_key="YOUR_API_KEY")
+memory = ConversationBufferMemory()
+conversation = ConversationChain(llm=llm, memory=memory)
+
+print(conversation.run("What is the capital of France?"))
+print(conversation.run("And what is its population?"))
+```
+
+## 3.5 Example: Q&A Bot with Memory Integration
+Here's a refined chatbot that retains memory for multi-turn conversations.
+
+```python
+import openai
+
+class MemoryAgent:
+    def __init__(self):
+        self.memory = []
+
+    def chat(self, user_input):
+        self.memory.append({"role": "user", "content": user_input})
+        response = openai.ChatCompletion.create(
+            model="gpt-4-turbo", messages=self.memory
+        )
+        message = response["choices"][0]["message"]
+        self.memory.append(message)
+        return message["content"]
+
+agent = MemoryAgent()
+print(agent.chat("Who discovered gravity?"))
+print(agent.chat("Tell me more about their work."))
+```
+
+## 3.6 Best Practices for Single-Agent Systems
+- **Choose the Right Model**: Use GPT-4-turbo for reasoning, Claude for structured responses, or Gemini for rapid content generation.
+- **Efficient Memory Handling**: Store relevant interactions to maintain context without unnecessary data overload.
+- **API Flexibility**: Design your agent to support multiple APIs for robustness and flexibility.
+- **Optimize Performance and Cost**: Employ caching, batching, and intelligent response filtering to manage API usage effectively.
+
+## 3.7 Conclusion
+This chapter covered building a single-agent AI system, beginning with simple implementations using OpenAI Agents SDK, Gemini, and Claude. We then introduced advanced concepts like memory and persistence, demonstrated practical examples, and outlined best practices for developing robust single-agent applications. The next chapter explores multi-agent systems, extending these concepts further.
+
 
 ---
 

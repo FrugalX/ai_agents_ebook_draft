@@ -15,7 +15,7 @@ pip install openai anthropic google-generativeai langchain mistralai
 ### API Keys
 Obtain API keys from OpenAI (for the Agents SDK & Responses API), Anthropic (Claude API), Google (Gemini API), and Mistral for open-source LLMs.
 
-## 7.3  AI Chatbot for Customer Support
+## 7.3  Building An AI Chatbot for Customer Support
 
 ### **Learning Outcome**
 By the end of this tutorial, you will have a fully functional AI chatbot capable of handling customer queries efficiently. The chatbot will be implemented using **OpenAI’s Agents SDK**, **Gemini API**, and **Claude API**, with both **Python and JavaScript examples**.
@@ -271,7 +271,7 @@ npcBehavior("Warrior");
 
 This AI-driven gaming system can be integrated into **RPGs, strategy games, and dynamic simulations**.
 
-## 7.8 Conclusion
+---
 
 This chapter introduced practical tutorials for building AI agents using multiple APIs, covering OpenAI’s Agents SDK, LangChain, and AutoGen for real-world applications. The next chapter will explore ethical considerations, privacy, and limitations in deploying AI agents.
 

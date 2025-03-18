@@ -15,6 +15,7 @@
 2.3 Setting Up Your Environment  
    - JavaScript: Basics and Setting Up Node.js  
    - Python: Basics and Installing Required Libraries  
+
 2.4 Your First Generative AI API Call  
    - Using OpenAI's Agents SDK  
    - Using Claude API  
@@ -26,9 +27,9 @@
 ## **3. Building a Single-Agent System**
 3.1 What is a Single-Agent System?  
 3.2 Anatomy of an AI Agent: Input, Process, and Output  
-3.3 Example: A Q&A Bot with JavaScript  
-3.4 Example: A Creative Story Generator with Python  
-3.5 Memory and Context in Single-Agent Systems  
+3.3 Implementing a Basic Single-Agent Systemt  
+3.4 Enhancing Single Agents with Memory & Persistence  
+3.5 Example: Q&A Bot with Memory Integration  
 3.6 Best Practices for Designing AI Agents  
 
 ---
@@ -38,9 +39,10 @@
 4.2 Communication Between Agents  
 4.3 Example: A Chat Simulation Between Two Agents  
    - JavaScript Example: Conversational Role Play  
-   - Python Example: Collaborative Idea Generation  
-4.4 Frameworks for Multi-Agent Collaboration (LangChain, AutoGen)  
-4.5 When to Use Multi-Agent Systems?  
+   - Python Example: Collaborative Idea Generation
+
+4.4 When to Use Multi-Agent Systems?  
+4.5 Performance Considerations When Choosing Frameworks
 
 ---
 
@@ -49,7 +51,8 @@
 5.2 Orchestration vs. Autonomy  
 5.3 Example: An Event Planning System Using Multiple Agents  
    - JavaScript: Event Planner with Autonomous Sub-Agents  
-   - Python: Research Assistants Coordinating Tasks  
+   - Python: Research Assistants Coordinating Tasks 
+    
 5.4 Hierarchical AI Agent Systems (CEO-Agent, Worker-Agent Models)  
 5.5 Challenges in Building Self-Orchestrated Systems  
 
@@ -58,17 +61,19 @@
 ## **6. Key Concepts in Generative AI Agents**
 6.1 Prompt Engineering for Agents  
 6.2 Memory and Long-Term Context in Agents  
-6.3 Retrieval-Augmented Generation (RAG) for AI Agents  
+6.3 Managing State and Conversations  
 6.4 Handling Errors and Failures in AI Systems  
 
 ---
 
 ## **7. Practical Tutorials**
-7.1 Building an AI Chatbot for Customer Support  
-7.2 Developing a Creative Content Assistant  
-7.3 Creating a Multi-Agent News Aggregator  
-7.4 Designing a Self-Orchestrated Research Tool  
-7.5 Building a Game with Multi-Agent Characters  
+7.1 Getting Started with Generative AI Agents
+7.2 Setting Up Your Environment
+7.3 Building an AI Chatbot for Customer Support  
+7.4 Developing a Creative Content Assistant  
+7.5 Creating a Multi-Agent News Aggregator  
+7.6 Designing a Self-Orchestrated Research Tool  
+7.7 Building a Game with Multi-Agent Characters  
 
 ---
 
@@ -76,8 +81,7 @@
 8.1 Ethical Considerations in AI Agents  
 8.2 Understanding Privacy Concerns in Multi-Agent Systems  
 8.3 Avoiding Bias in AI Agents  
-8.4 Exploring the Limits of Generative AI  
-8.5 AI Sustainability and Environmental Considerations  
+8.4 Exploring the Limits of Generative AI   
 
 ---
 

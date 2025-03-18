@@ -226,7 +226,8 @@ class MemoryAgent {
 - **API Flexibility**: Design your agent to support multiple APIs for robustness and flexibility.
 - **Optimize Performance and Cost**: Employ caching, batching, and intelligent response filtering to manage API usage effectively.
 
-## 3.7 Conclusion
+---
+
 This chapter covered building a single-agent AI system, beginning with simple implementations using OpenAI Agents SDK, Gemini, and Claude. We then introduced advanced concepts like memory and persistence, demonstrated practical examples, and outlined best practices for developing robust single-agent applications. The next chapter explores multi-agent systems, extending these concepts further.
 
 

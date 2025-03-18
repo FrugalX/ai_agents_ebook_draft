@@ -24,17 +24,17 @@ Autonomous systems decentralize decision-making, allowing individual agents to a
 
 ### Hierarchical Agent Systems
 A hierarchical agent system is a structured approach where agents are divided into different roles based on levels of responsibility:
-- **High-Level Agents (Manager/CEO Agents):** Responsible for strategic decision-making and delegating tasks.
-- **Mid-Level Agents (Coordinator Agents):** Monitor task progress and reassign resources dynamically.
-- **Low-Level Agents (Worker Agents):** Execute specific tasks assigned by higher-level agents.
+- **High-Level Agents (Strategic/CEO Agents):** Responsible for strategic decision-making and delegating tasks.
+- **Mid-Level Agents (Tactical/Coordinator Agents):** Monitor task progress and reassign resources dynamically.
+- **Low-Level Agents (Operational/Worker Agents):** Execute specific tasks assigned by higher-level agents.
 
 This structure improves **scalability, efficiency, and fault tolerance** in multi-agent environments.
 
-### OpenAI’s Agentic Roadmap
-OpenAI is shifting towards more autonomous agent architectures that balance independence and oversight. Key advancements include:
-- **Function Calling in GPT-4:** Enabling agents to interface with external tools autonomously.
-- **Assistants API:** A structured way to build multi-turn, autonomous agent workflows with persistent memory.
-- **Tool-Use Integration:** AI agents that can trigger APIs and databases for real-time execution.
+### AI Agentic Roadmaps: OpenAI, Gemini, and Mistral
+The development of autonomous AI agents is evolving rapidly, with multiple companies introducing agent-based architectures:
+- **OpenAI Agents SDK & Responses API:** Enables multi-turn, autonomous agent workflows with dynamic function calling, persistent memory, and tool use.
+- **Gemini’s API:** Designed for **multi-modal planning and reasoning**, supporting agent-based architectures within Google’s ecosystem.
+- **Mistral’s Models:** Focus on open-weight, efficient AI models for developing customizable self-orchestrating systems.
 
 ### Comparison Table:
 
@@ -51,11 +51,9 @@ OpenAI is shifting towards more autonomous agent architectures that balance inde
 This example demonstrates a hierarchical agent system where a **CEO-Agent** delegates tasks to specialized **Worker-Agents**.
 
 ```javascript
-const { Configuration, OpenAIApi } = require("openai");
+import { OpenAI } from "openai";
 
-const configuration = new Configuration({ apiKey: "YOUR_API_KEY" });
-const openai = new OpenAIApi(configuration);
-
+const openai = new OpenAI({ apiKey: "YOUR_API_KEY" });
 const workerAgents = ["Venue Agent", "Catering Agent", "Schedule Agent"];
 
 async function ceoAgentDelegation() {
@@ -66,15 +64,12 @@ async function ceoAgentDelegation() {
   };
 
   for (const agent of workerAgents) {
-    const response = await openai.createChatCompletion({
-      model: "gpt-4",
-      messages: [
-        { role: "system", content: "You are a specialized agent assigned to a task." },
-        { role: "user", content: `Task: ${tasks[agent]}` }
-      ]
+    const response = await openai.beta.agents.create({
+      name: agent,
+      instructions: `Task: ${tasks[agent]}`
     });
-
-    console.log(`${agent} Response: ${response.data.choices[0].message.content}`);
+    
+    console.log(`${agent} Response: ${response.instructions}`);
   }
 }
 
@@ -85,9 +80,9 @@ ceoAgentDelegation();
 This Python example showcases hierarchical autonomy in a research setting.
 
 ```python
-import openai
+from openai import OpenAI
 
-openai.api_key = "YOUR_API_KEY"
+client = OpenAI(api_key="YOUR_API_KEY")
 
 def ceo_agent_research():
     tasks = {
@@ -97,15 +92,11 @@ def ceo_agent_research():
     }
 
     for agent, task in tasks.items():
-        response = openai.ChatCompletion.create(
-            model="gpt-4",
-            messages=[
-                {"role": "system", "content": "You are a specialized research assistant."},
-                {"role": "user", "content": f"Task: {task}"}
-            ]
+        response = client.beta.agents.create(
+            name=agent,
+            instructions=task
         )
-
-        print(f"{agent} Response: {response['choices'][0]['message']['content']}")
+        print(f"{agent} Response: {response.instructions}")
 
 ceo_agent_research()
 ```
@@ -114,6 +105,30 @@ ceo_agent_research()
 - **Maintaining Balance Between Autonomy and Control:** Overly independent agents may diverge from intended goals.
 - **Ensuring Robust Inter-Agent Communication:** Breakdown in communication can lead to inefficiencies or failures.
 - **Scalability of Hierarchical Agents:** Designing multi-tiered agent hierarchies requires careful planning.
+- **Error Handling & Recovery:** Ensuring agents recover from failures without human intervention.
+
+## 5.5 Performance Considerations in Self-Orchestrated Systems
+As AI systems move towards **self-orchestrating multi-agent architectures**, key challenges emerge in balancing **autonomy with efficiency**.
+
+### **Key Factors for Performance Optimization:**
+- **Scalability:** How efficiently the system handles multiple agents executing tasks in parallel.
+- **Latency:** Optimizing real-time processing speed in distributed environments.
+- **Resource Efficiency:** Managing API calls and computational costs in agent interactions.
+- **Fault Tolerance:** Ensuring individual agent failures do not disrupt the entire system.
+
+### **Comparison of Frameworks for Self-Orchestrating AI Agents:**
+
+| Framework         | Scalability | Complexity | Cost Efficiency | Fault Tolerance |
+|-----------------|------------|------------|----------------|---------------|
+| OpenAI Agents SDK | High       | Low        | Moderate       | High          |
+| AutoGen         | Medium     | High       | High           | Medium        |
+| LangChain Agents | High       | Medium     | Moderate       | High          |
+| Custom Mistral Setup | High  | High       | Low            | Medium        |
+
+### **Best Practices:**
+- **Agent Collaboration Strategies:** Assign well-defined roles to agents (CEO-Agent, Worker-Agents) for better task execution.
+- **Parallel Task Execution:** Optimize processing efficiency by designing agents to work concurrently rather than sequentially.
+- **Smart Error Handling:** Implement **fallback mechanisms** to manage failures and reduce disruptions in autonomous workflows.
 
 ---
 

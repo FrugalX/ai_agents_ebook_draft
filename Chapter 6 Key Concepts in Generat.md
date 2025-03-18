@@ -18,7 +18,9 @@ Prompt engineering involves crafting effective inputs to guide AI models in gene
 
 ### **Example: Crafting Prompts for AI Agents**
 - **General Query**: "Explain climate change."
-- **Refined Query**: "Explain climate change in simple terms for a 10-year-old."  
+- **Refined Query**: "Explain climate change in simple terms for a 10-year-old."
+
+Additionally, **multi-step prompting** and **function calling** within AI models allow agents to break down complex queries into structured responses. **OpenAI’s function-calling mechanisms** and **Gemini’s API reasoning capabilities** further enhance prompt effectiveness.
 
 ---
 
@@ -36,17 +38,28 @@ AI agents use memory and context to maintain coherence across interactions. Thes
 2. **Long-Term Memory**:
    - Retains information across sessions for continuity.
    - Example: A virtual assistant recalling a user’s favorite music genre.
-   - Implemented via solutions like **LangChain Memory** and **Weaviate vector databases**.
+   - Implemented via solutions like **OpenAI Agents SDK Memory**, **LangChain Memory**, and **Weaviate vector databases**.
 
 ### **Retrieval-Augmented Generation (RAG):**
 - Enhances AI responses by retrieving relevant data from external knowledge sources.
 - Improves accuracy and reduces hallucinations.
 - Example: A research assistant using **RAG** to pull updated scientific papers before answering a query.
+- **OpenAI’s Retrieval API**, **LlamaIndex**, and **LangChain RAG** are widely used for structured document retrieval.
+- **Vector databases** like **Weaviate and Pinecone** enable scalable, high-speed access to stored knowledge.
 
 ### **Implementing Context Awareness:**
-- Maintain a history of interactions (e.g., in JSON format).
-- Use this history to enrich prompts or model inputs.
-- Utilize **vector databases** like **Weaviate or Pinecone** for scalable retrieval of past knowledge.
+- Maintain a history of interactions and integrate it into agent responses.
+- Use structured retrieval techniques to reference prior knowledge.
+- **OpenAI Agents SDK now supports memory persistence**, allowing agents to retain knowledge across multiple interactions, ensuring more relevant and personalized responses.
+
+### **Integrating Model Context Protocol (MCP) for AI Memory**
+
+The **Model Context Protocol (MCP)** is an emerging framework designed to improve **context sharing and memory retention** across AI agents. By integrating MCP, AI agents can:
+- **Maintain a unified knowledge base**, ensuring all agents have access to shared memory.
+- **Enable seamless multi-session interactions**, reducing the need for redundant queries.
+- **Enhance personalization**, by allowing AI systems to store and retrieve user-specific information across platforms.
+
+MCP provides **structured memory management**, ensuring that context is **securely stored, retrieved efficiently, and shared responsibly among agents**, especially in multi-agent environments.
 
 ---
 
@@ -67,7 +80,14 @@ State management ensures that AI agents handle multi-turn interactions effective
 2. **Session Tokens:**
    - Use unique tokens to link user interactions within a session.
 3. **Memory Integration:**
-   - Use **LangChain Memory** or **vector databases** for persistent, scalable state retention.
+   - **OpenAI Agents SDK Memory**, **LangChain Memory**, and **vector databases** provide structured state retention.
+   - Best practices include **session-based memory management** and **hybrid approaches combining local and cloud memory** for optimized performance.
+
+### **MCP for Context Persistence in AI Agents**
+MCP provides a standardized **protocol for managing state** in AI-driven workflows. It allows:
+- **Cross-agent coordination**, where multiple AI agents **share and update contextual knowledge**.
+- **Session continuity**, ensuring that AI assistants retain memory across multiple user interactions.
+- **Improved response consistency**, reducing redundancy and improving contextual awareness in long conversations.
 
 ---
 
@@ -96,9 +116,10 @@ Errors are inevitable in AI systems, but robust error-handling strategies can mi
    - Example: Retrying API calls after network interruptions.
 4. **Logging and Monitoring:**
    - Track errors to identify and resolve recurring issues.
-   - Implement observability tools like **OpenAI's event-driven error handling**, **Sentry**, or **Datadog** to monitor and respond to failures in real time.
+   - **OpenAI's event-driven error handling**, **Sentry**, and **Datadog** provide real-time monitoring.
+   - **Automated alerting** enables AI agents to self-correct without human intervention.
 
-By mastering these key concepts, developers can build more **robust, scalable, and intelligent** generative AI agents that **adapt dynamically to new challenges**.
+By mastering these key concepts, developers can build more **robust, scalable, and intelligent** generative AI agents that **adapt dynamically to new challenges** while maintaining accuracy, efficiency, and resilience.
 
 
 ---

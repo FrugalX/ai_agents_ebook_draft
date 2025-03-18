@@ -10,14 +10,16 @@
 ---
 
 ## **2. Generative AI APIs: Getting Started**
-2.1 Overview of OpenAI, Gemini, and Llama APIs  
+2.1 Overview of OpenAI, Gemini, Claude, and Mistral APIs  
 2.2 How Generative AI Models Work (Simplified)  
 2.3 Setting Up Your Environment  
    - JavaScript: Basics and Setting Up Node.js  
    - Python: Basics and Installing Required Libraries  
 2.4 Your First Generative AI API Call  
-   - Using OpenAI's ChatGPT API  
-   - A "Hello AI" Example  
+   - Using OpenAI's Agents SDK  
+   - Using Claude API  
+   - Using Gemini API  
+   - Using Mistral API  
 
 ---
 
@@ -26,7 +28,8 @@
 3.2 Anatomy of an AI Agent: Input, Process, and Output  
 3.3 Example: A Q&A Bot with JavaScript  
 3.4 Example: A Creative Story Generator with Python  
-3.5 Best Practices for Designing AI Agents  
+3.5 Memory and Context in Single-Agent Systems  
+3.6 Best Practices for Designing AI Agents  
 
 ---
 
@@ -36,7 +39,8 @@
 4.3 Example: A Chat Simulation Between Two Agents  
    - JavaScript Example: Conversational Role Play  
    - Python Example: Collaborative Idea Generation  
-4.4 When to Use Multi-Agent Systems?  
+4.4 Frameworks for Multi-Agent Collaboration (LangChain, AutoGen)  
+4.5 When to Use Multi-Agent Systems?  
 
 ---
 
@@ -46,14 +50,15 @@
 5.3 Example: An Event Planning System Using Multiple Agents  
    - JavaScript: Event Planner with Autonomous Sub-Agents  
    - Python: Research Assistants Coordinating Tasks  
-5.4 Challenges in Building Self-Orchestrated Systems  
+5.4 Hierarchical AI Agent Systems (CEO-Agent, Worker-Agent Models)  
+5.5 Challenges in Building Self-Orchestrated Systems  
 
 ---
 
 ## **6. Key Concepts in Generative AI Agents**
 6.1 Prompt Engineering for Agents  
-6.2 Memory and Context in Agents  
-6.3 Managing State and Conversations  
+6.2 Memory and Long-Term Context in Agents  
+6.3 Retrieval-Augmented Generation (RAG) for AI Agents  
 6.4 Handling Errors and Failures in AI Systems  
 
 ---
@@ -68,10 +73,11 @@
 ---
 
 ## **8. Ethics, Privacy, and Limitations**
-8.1 Ethical Considerations in Generative AI  
-8.2 Understanding Privacy Concerns  
+8.1 Ethical Considerations in AI Agents  
+8.2 Understanding Privacy Concerns in Multi-Agent Systems  
 8.3 Avoiding Bias in AI Agents  
 8.4 Exploring the Limits of Generative AI  
+8.5 AI Sustainability and Environmental Considerations  
 
 ---
 
@@ -83,14 +89,22 @@
 ---
 
 ## **10. Resources and References**
-10.1 Additional Learning Resources  
-10.2 Recommended Tools and Libraries  
-10.3 Glossary of Key Terms  
-10.4 References and Suggested Reading  
+10.1 Industry Whitepapers and Research Reports  
+10.2 Cutting-Edge Tools and Libraries  
+10.3 AI Governance & Regulatory Frameworks  
+10.4 Research Papers and Suggested Reading  
 
 ---
 
-## **Appendices**
-**A. Setting Up the Development Environment**  
-**B. Common Errors and Troubleshooting**  
-**C. Example Projects and Exercises**  
+## **11. Case Studies in AI Agent Applications**
+11.1 AI Agents in Software Development  
+11.2 AI Agents in Healthcare  
+11.3 AI Agents in Finance  
+11.4 AI Agents in Autonomous Systems  
+11.5 AI Agents in Scientific Research  
+11.6 AI Agents in Crisis Management and Disaster Response  
+
+---
+
+## **12. Glossary of Terms**
+A comprehensive reference of key terms used in AI agents, multi-agent systems, generative AI, and AI governance.

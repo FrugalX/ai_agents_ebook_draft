@@ -94,5 +94,5 @@ By leveraging these curated resources, readers can explore cutting-edge advancem
 
 ---
 
-[Previous: Chapter 9](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Chapter%209%20Future%20Trends%20and%20Appli.md) | [Next: Appendices](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Appendices.md)
+[Previous: Chapter 9](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Chapter%209%20Future%20Trends%20and%20Appli.md) | [Next: Case Studies](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Case%20Studies.md)
 

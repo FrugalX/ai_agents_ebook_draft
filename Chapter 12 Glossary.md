@@ -116,4 +116,4 @@ This glossary provides a foundational reference for understanding the key concep
 
 ---
 
-[Previous: Chapter 11](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Chapter%2011%20Case%20and%20Studies.md) 
+[Previous: Chapter 11](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Chapter%2011%20Case%20Studies.md) 

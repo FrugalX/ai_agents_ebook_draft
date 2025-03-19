@@ -22,7 +22,8 @@ Generative AI plays a pivotal role in modern AI agent development, providing the
 graph LR
     Rule-Based_AI --> Machine_Learning_AI
     Machine_Learning_AI --> Deep_Learning_AI
-    Deep_Learning_AI --> Generative_AI_Agents
+    Deep_Learning_AI --> Generative_AI
+    Generative_AI --> Generative_AI_Agents
 ```
 
 ---

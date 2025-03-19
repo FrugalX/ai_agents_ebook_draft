@@ -20,6 +20,19 @@ Obtain API keys from OpenAI (for the Agents SDK & Responses API), Anthropic (Cla
 ### **Learning Outcome**
 By the end of this tutorial, you will have a fully functional AI chatbot capable of handling customer queries efficiently. The chatbot will be implemented using **OpenAI’s Agents SDK**, **Gemini API**, and **Claude API**, with both **Python and JavaScript examples**.
 
+```mermaid
+sequenceDiagram
+    participant User
+    participant Chatbot
+    participant API
+
+    User->>Chatbot: Sends a query
+    Chatbot->>Chatbot: Process query & retrieve context
+    Chatbot->>API: Call external knowledge base
+    API-->>Chatbot: Return relevant data
+    Chatbot-->>User: Generate response
+```
+
 ### **Step 1: Setting Up the AI Chatbot**
 - Choose your AI provider (OpenAI, Gemini, or Claude).
 - Define chatbot instructions and expected behavior.
@@ -70,6 +83,19 @@ This chatbot can be integrated into web apps, mobile apps, or backend systems fo
 ### **Learning Outcome**
 By the end of this tutorial, you will develop an AI-powered content assistant capable of generating creative writing pieces like stories, blog posts, and social media captions.
 
+```mermaid
+sequenceDiagram
+    participant User
+    participant AI_Assistant
+    participant Research_API
+
+    User->>AI_Assistant: Provide topic request
+    AI_Assistant->>AI_Assistant: Retrieve writing style/memory
+    AI_Assistant->>Research_API: Fetch related info (optional)
+    Research_API-->>AI_Assistant: Return research data
+    AI_Assistant-->>User: Generate creative content
+```
+
 ### **Step 1: Setting Up the Content Assistant**
 - Choose your AI provider (OpenAI, Gemini, or Claude).
 - Define creative writing instructions and expected outputs.
@@ -118,6 +144,16 @@ This content assistant can be integrated into **blog platforms, social media man
 ### **Learning Outcome**
 By the end of this tutorial, you will build a **multi-agent system** that gathers, summarizes, and organizes news articles from different sources.
 
+```mermaid
+graph TD
+    User -->|Request News| NewsAggregator
+    NewsAggregator -->|Fetch| NewsScraper
+    NewsScraper -->|Retrieve Data| NewsAPIs
+    NewsAggregator -->|Summarize| Summarizer
+    Summarizer -->|Categorize| Categorizer
+    Categorizer -->|Deliver| User
+```
+
 ### **Step 1: Understanding Multi-Agent Collaboration**
 - **Fetching Agent**: Retrieves news articles from APIs like NewsAPI.
 - **Summarization Agent**: Condenses information for easier consumption.
@@ -165,6 +201,20 @@ This news aggregator can be integrated into **news websites, RSS readers, or AI-
 
 ### **Learning Outcome**
 By the end of this tutorial, you will have built a **self-orchestrating research agent** capable of fetching, analyzing, and summarizing research papers using AI.
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Research_Agent
+    participant PaperDB
+    participant Summarizer
+
+    User->>Research_Agent: Submit research query
+    Research_Agent->>PaperDB: Retrieve academic papers
+    PaperDB-->>Research_Agent: Send paper data
+    Research_Agent->>Summarizer: Summarize findings
+    Summarizer-->>User: Provide structured research report
+```
 
 ### **Step 1: Understanding Multi-Agent Research Workflows**
 A self-orchestrated research tool automates literature review, data analysis, and summarization.
@@ -227,6 +277,15 @@ By the end of this tutorial, you will create a game where AI-powered agents dyna
 - **NPC Behavior Agent**: Controls non-playable characters.
 - **Combat Strategy Agent**: Determines attack/defense strategies.
 - **Environment Interaction Agent**: Adapts the game world based on AI decisions.
+
+```mermaid
+graph TD
+    Player -->|Interacts with| GameEngine
+    GameEngine -->|Manages| NPC_Agent1
+    GameEngine -->|Manages| NPC_Agent2
+    NPC_Agent1 -->|Communicates with| NPC_Agent2
+    NPC_Agent2 -->|Responds based on| Player actions
+```
 
 ### **Python: AI-Powered NPCs Using OpenAI Agents SDK**
 ```python

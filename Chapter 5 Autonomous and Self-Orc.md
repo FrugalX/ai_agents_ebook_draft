@@ -22,6 +22,12 @@ Autonomous systems decentralize decision-making, allowing individual agents to a
 - Handle complexity without overloading a central controller.
 - Increase resilience by eliminating single points of failure.
 
+```mermaid
+graph TD
+    Centralized_Control --> Agent_Nodes
+    Autonomous_Agents -->|Independent Decision-Making| Self_Governing_Systems
+```
+
 ### Hierarchical Agent Systems
 A hierarchical agent system is a structured approach where agents are divided into different roles based on levels of responsibility:
 - **High-Level Agents (Strategic/CEO Agents):** Responsible for strategic decision-making and delegating tasks.
@@ -29,6 +35,12 @@ A hierarchical agent system is a structured approach where agents are divided in
 - **Low-Level Agents (Operational/Worker Agents):** Execute specific tasks assigned by higher-level agents.
 
 This structure improves **scalability, efficiency, and fault tolerance** in multi-agent environments.
+
+```mermaid
+graph TD
+    CEO_Agent -->|Delegates Tasks| Manager_Agent
+    Manager_Agent -->|Manages Subtasks| Worker_Agent
+```
 
 ### AI Agentic Roadmaps: OpenAI, Gemini, and Mistral
 The development of autonomous AI agents is evolving rapidly, with multiple companies introducing agent-based architectures:

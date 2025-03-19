@@ -31,6 +31,18 @@ graph LR
 ## **1.2 Understanding AI Agents**
 An AI agent is a system capable of perceiving its environment, processing information, and taking actions to achieve specific goals. While Generative AI specializes in content creation, AI agents leverage this capability to take meaningful actions in real-world applications. Modern AI agents go beyond simple task execution; they incorporate **planning, memory, and adaptability**, making them more autonomous and capable of handling complex workflows.
 
+```mermaid
+sequenceDiagram
+    participant User
+    participant AI_Agent
+    participant API_Service
+
+    User->>AI_Agent: Submit request
+    AI_Agent->>API_Service: API call for processing
+    API_Service-->>AI_Agent: Return response
+    AI_Agent-->>User: Generate output
+```
+
 ### **Types of AI Agents:**
 - **Reactive Agents**: Respond directly to stimuli without maintaining an internal state (e.g., rule-based chatbots).
 - **Deliberative Agents**: Use internal models to plan actions based on objectives (e.g., autonomous robots).

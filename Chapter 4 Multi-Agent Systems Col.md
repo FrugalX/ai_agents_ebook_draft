@@ -45,6 +45,17 @@ Communication is vital in MAS for coordination and task-sharing. Common techniqu
    - **Broadcasting**: An agent shares information with all other agents.
    - **Function Calling**: Agents invoke external tools or APIs to extend their capabilities.
 
+```mermaid
+sequenceDiagram
+    participant Agent1
+    participant Agent2
+    participant Shared_Memory
+
+    Agent1->>Shared_Memory: Store Data
+    Agent2->>Shared_Memory: Retrieve Data
+    Agent1->>Agent2: Direct message exchange
+```
+
 ### **Leveraging MCP for Improved Communication**
 MCP provides a standardized approach to **context management** in multi-agent communication by:
 - **Reducing redundant information exchange** through persistent memory.

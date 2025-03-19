@@ -111,6 +111,14 @@ AI agents are increasingly used in crisis management to improve response times a
 - **AI in Humanitarian Aid** – AI agents manage logistics for the delivery of essential supplies in crisis-stricken areas.
 - **Drone-Assisted Search & Rescue** – AI-powered drones assess damage, locate missing individuals, and guide rescue operations.
 
+```mermaid
+graph TD
+    Early_Warning_Agent --> Disaster_Prediction
+    Disaster_Prediction --> Response_Planning_Agent
+    Response_Planning_Agent --> Resource_Allocation_Agent
+    Resource_Allocation_Agent --> Search_And_Rescue_Agent
+```
+
 The combination of AI agents in crisis response can **save lives by improving efficiency, reducing human error, and accelerating decision-making** during emergencies.
 
 ---

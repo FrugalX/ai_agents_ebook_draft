@@ -16,6 +16,13 @@ A single-agent AI system typically consists of the following components:
 - **Memory & Context Awareness**: Maintains conversation history and contextual understanding.
 - **Output Handling**: Returns responses through text, voice, or structured data formats.
 
+```mermaid
+graph TD
+    Input --> Processing
+    Processing -->|LLM, RAG, Memory| Decision_Making
+    Decision_Making --> Output
+```
+
 ## 3.3 Implementing a Basic Single-Agent System
 Let’s first build basic AI agents using OpenAI’s Agents SDK, Gemini API, and Claude’s system message approach.
 

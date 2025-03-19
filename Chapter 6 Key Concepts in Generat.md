@@ -40,12 +40,27 @@ AI agents use memory and context to maintain coherence across interactions. Thes
    - Example: A virtual assistant recalling a user’s favorite music genre.
    - Implemented via solutions like **OpenAI Agents SDK Memory**, **LangChain Memory**, and **Weaviate vector databases**.
 
+   ```mermaid
+   graph TD
+    User_Query --> Short_Term_Memory
+    Short_Term_Memory --> Processing
+    Processing -->|Decision| Long_Term_Memory
+    Long_Term_Memory --> Future_Interactions
+   ```
+
 ### **Retrieval-Augmented Generation (RAG):**
 - Enhances AI responses by retrieving relevant data from external knowledge sources.
 - Improves accuracy and reduces hallucinations.
 - Example: A research assistant using **RAG** to pull updated scientific papers before answering a query.
 - **OpenAI’s Retrieval API**, **LlamaIndex**, and **LangChain RAG** are widely used for structured document retrieval.
 - **Vector databases** like **Weaviate and Pinecone** enable scalable, high-speed access to stored knowledge.
+
+```mermaid
+graph TD
+    User_Query --> Retrieval_System
+    Retrieval_System --> Relevant_Data
+    Relevant_Data --> AI_Generation
+```
 
 ### **Implementing Context Awareness:**
 - Maintain a history of interactions and integrate it into agent responses.
@@ -58,6 +73,13 @@ The **Model Context Protocol (MCP)** is an emerging framework designed to improv
 - **Maintain a unified knowledge base**, ensuring all agents have access to shared memory.
 - **Enable seamless multi-session interactions**, reducing the need for redundant queries.
 - **Enhance personalization**, by allowing AI systems to store and retrieve user-specific information across platforms.
+
+```mermaid
+graph TD
+    MCP --> AI_Agent1
+    MCP --> AI_Agent2
+    AI_Agent1 -->|Shares Context| AI_Agent2
+```
 
 MCP provides **structured memory management**, ensuring that context is **securely stored, retrieved efficiently, and shared responsibly among agents**, especially in multi-agent environments.
 

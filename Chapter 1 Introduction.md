@@ -15,6 +15,16 @@ Recent advancements, such as OpenAI’s GPT-4 Turbo, Google’s Gemini 1.5, Meta
 
 Generative AI plays a pivotal role in modern AI agent development, providing the underlying capabilities that enable intelligent decision-making, content creation, and multimodal interactions.
 
+
+### **Evolution of AI Systems**
+
+```mermaid
+graph LR
+    Rule-Based_AI --> Machine_Learning_AI
+    Machine_Learning_AI --> Deep_Learning_AI
+    Deep_Learning_AI --> Generative_AI_Agents
+```
+
 ---
 
 ## **1.2 Understanding AI Agents**

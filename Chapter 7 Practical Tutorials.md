@@ -284,7 +284,7 @@ graph TD
     GameEngine -->|Manages| NPC_Agent1
     GameEngine -->|Manages| NPC_Agent2
     NPC_Agent1 -->|Communicates with| NPC_Agent2
-    NPC_Agent2 -->|Responds based on| Player actions
+    NPC_Agent2 -->|Responds based on| Player_actions
 ```
 
 ### **Python: AI-Powered NPCs Using OpenAI Agents SDK**

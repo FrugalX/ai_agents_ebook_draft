@@ -26,6 +26,6 @@
 
 [Chapter 10: Resources and References](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Chapter%2010%20Resources%20and%20Referenc.md)
 
-[Chapter 11: Csae Studies in AI Agent Applications](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Chapter%2011%20Case%20Studies.md)
+[Chapter 11: Case Studies in AI Agent Applications](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Chapter%2011%20Case%20Studies.md)
 
 [Chapter 12: Glossary of Terms](https://github.com/FrugalX/ai_agents_ebook_draft/blob/main/Chapter%2012%20Glossary.md)

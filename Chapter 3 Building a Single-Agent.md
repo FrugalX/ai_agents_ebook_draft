@@ -26,7 +26,7 @@ graph TD
 ## 3.3 Implementing a Basic Single-Agent System
 Let’s first build basic AI agents using OpenAI’s Agents SDK, Gemini API, and Claude’s system message approach.
 
-### Example 1: Basic AI Chatbot using OpenAI Agents SDK
+### 3.3.1 Example 1: Basic AI Chatbot using OpenAI Agents SDK
 
 #### Python
 ```python
@@ -63,7 +63,7 @@ async function aiChatbot(prompt) {
 aichatbot("Tell me about AI agents.");
 ```
 
-### Example 2: Using Claude’s System Messages for Contextual Responses
+### 3.3.2 Example 2: Using Claude’s System Messages for Contextual Responses
 
 #### Python
 ```python
@@ -99,7 +99,7 @@ async function claudeChatbot(prompt) {
 claudeChatbot("Explain reinforcement learning.");
 ```
 
-### Example 3: Basic AI Agent using Gemini API
+### 3.3.3 Example 3: Basic AI Agent using Gemini API
 
 #### Python
 ```python

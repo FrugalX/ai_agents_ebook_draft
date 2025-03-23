@@ -68,7 +68,7 @@ MCP provides a standardized approach to **context management** in multi-agent co
 
 ## **4.3 Example: A Chat Simulation Between Two Agents**
 
-### **JavaScript Example: Conversational Role Play**
+### 4.3.1 **JavaScript Example: Conversational Role Play**
 
 Simulating a conversation between two agents using Node.js and LangChain:
 
@@ -93,7 +93,7 @@ async function simulateConversation() {
 simulateConversation();
 ```
 
-### **Python Example: Collaborative Idea Generation with AutoGen**
+### 4.3.2 **Python Example: Collaborative Idea Generation with AutoGen**
 
 ```python
 from autogen import AssistantAgent, UserProxyAgent
@@ -110,7 +110,7 @@ def collaborative_idea_generation():
 collaborative_idea_generation()
 ```
 
-### **Python Example: Using OpenAI's Agents SDK for Coordination**
+### 4.3.3 **Python Example: Using OpenAI's Agents SDK for Coordination**
 
 ```python
 from openai import OpenAI

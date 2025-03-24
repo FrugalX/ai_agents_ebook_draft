@@ -24,207 +24,258 @@ graph TD
 ```
 
 ## 3.3 Implementing a Basic Single-Agent System
-Let’s first build basic AI agents using OpenAI’s Agents SDK, Gemini API, and Claude’s system message approach.
+Let’s build stateful AI agents using OpenAI’s Agents SDK, Gemini API, and Claude’s system message approach.
 
-### 3.3.1 Example 1: Basic AI Chatbot using OpenAI Agents SDK
-
-#### Python
+### 3.3.1 Example 1: Stateful AI Agent using OpenAI (Python)
 ```python
 from openai import OpenAI
 
-oai = OpenAI(api_key="YOUR_API_KEY")
+client = OpenAI(api_key="YOUR_API_KEY")
 
-def ai_chatbot(prompt):
-    response = oai.chat.completions.create(
-        model="gpt-4-turbo",
-        messages=[{"role": "system", "content": "You are an AI assistant."}, {"role": "user", "content": prompt}]
-    )
-    return response.choices[0].message.content
+class ResearchAssistantAgent:
+    def __init__(self):
+        self.memory = [
+            {"role": "system", "content": "You are a helpful research assistant who provides concise and relevant answers."}
+        ]
 
-print(ai_chatbot("Tell me about AI agents."))
+    def interact(self, user_input):
+        self.memory.append({"role": "user", "content": user_input})
+        response = client.chat.completions.create(
+            model="gpt-4-turbo",
+            messages=self.memory
+        )
+        reply = response.choices[0].message.content
+        self.memory.append({"role": "assistant", "content": reply})
+        return reply
+
+agent = ResearchAssistantAgent()
+print(agent.interact("What are large language models?"))
+print(agent.interact("Give me an example of how they're used."))
 ```
 
-#### JavaScript
+### Example 1: Stateful AI Agent using OpenAI (JavaScript)
 ```javascript
 import { OpenAI } from "openai";
+
 const openai = new OpenAI({ apiKey: "YOUR_API_KEY" });
 
-async function aiChatbot(prompt) {
+class ResearchAssistantAgent {
+  constructor() {
+    this.memory = [
+      { role: "system", content: "You are a helpful research assistant who provides concise and relevant answers." }
+    ];
+  }
+
+  async interact(userInput) {
+    this.memory.push({ role: "user", content: userInput });
+
     const response = await openai.chat.completions.create({
-        model: "gpt-4-turbo",
-        messages: [
-            { role: "system", content: "You are an AI assistant." },
-            { role: "user", content: prompt }
-        ]
+      model: "gpt-4-turbo",
+      messages: this.memory,
     });
-    console.log(response.choices[0].message.content);
+
+    const reply = response.choices[0].message.content;
+    this.memory.push({ role: "assistant", content: reply });
+
+    return reply;
+  }
 }
 
-aichatbot("Tell me about AI agents.");
+const agent = new ResearchAssistantAgent();
+(async () => {
+  console.log(await agent.interact("What are large language models?"));
+  console.log(await agent.interact("Give me an example of how they're used."));
+})();
 ```
 
-### 3.3.2 Example 2: Using Claude’s System Messages for Contextual Responses
-
-#### Python
-```python
-import anthropic
-
-client = anthropic.Anthropic(api_key="YOUR_CLAUDE_API_KEY")
-
-def claude_chatbot(prompt):
-    response = client.messages.create(
-        model="claude-3-haiku-2024-02-25",
-        system="You are an expert AI agent providing clear explanations.",
-        messages=[{"role": "user", "content": prompt}]
-    )
-    return response.content
-
-print(claude_chatbot("Explain reinforcement learning."))
-```
-
-#### JavaScript
-```javascript
-import { Anthropic } from "anthropic";
-const anthropic = new Anthropic({ apiKey: "YOUR_CLAUDE_API_KEY" });
-
-async function claudeChatbot(prompt) {
-    const response = await anthropic.messages.create({
-        model: "claude-3-haiku-2024-02-25",
-        system: "You are an expert AI agent providing clear explanations.",
-        messages: [{ role: "user", content: prompt }]
-    });
-    console.log(response.content);
-}
-
-claudeChatbot("Explain reinforcement learning.");
-```
-
-### 3.3.3 Example 3: Basic AI Agent using Gemini API
-
-#### Python
+### 3.3.2 Example 2: Stateful AI Agent using Gemini API (Python)
 ```python
 import google.generativeai as genai
 
 genai.configure(api_key="YOUR_GEMINI_API_KEY")
 
-def gemini_chatbot(prompt):
-    model = genai.GenerativeModel("gemini-pro")
-    response = model.generate_content(prompt)
-    return response.text
+class GeminiResearchAgent:
+    def __init__(self):
+        self.model = genai.GenerativeModel("gemini-pro")
+        self.chat = self.model.start_chat(history=[
+            {"role": "system", "parts": ["You are a helpful research assistant who provides concise and clear answers."]}
+        ])
 
-print(gemini_chatbot("Describe the future of AI agents."))
+    def interact(self, user_input):
+        response = self.chat.send_message(user_input)
+        return response.text
+
+agent = GeminiResearchAgent()
+print(agent.interact("Explain generative AI."))
+print(agent.interact("What are some common use cases?"))
 ```
 
-#### JavaScript
+### Example 2: Stateful AI Agent using Gemini API (JavaScript)
 ```javascript
 import { GoogleGenerativeAI } from "@google/generative-ai";
+
 const genAI = new GoogleGenerativeAI("YOUR_GEMINI_API_KEY");
 
-async function geminiChatbot(prompt) {
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-    const result = await model.generateContent(prompt);
-    console.log(result.response.text());
-}
-
-geminiChatbot("Describe the future of AI agents.");
-```
-
-## 3.4 Enhancing Single Agents with Memory & Persistence
-After setting up basic agents, we can integrate memory for enhanced contextual responses using LangChain.
-
-### Example: AI Agent with Memory Using LangChain
-
-#### Python
-```python
-from langchain.chains import ConversationChain
-from langchain.memory import ConversationBufferMemory
-from langchain.chat_models import ChatOpenAI
-
-llm = ChatOpenAI(model_name="gpt-4-turbo", openai_api_key="YOUR_API_KEY")
-memory = ConversationBufferMemory()
-conversation = ConversationChain(llm=llm, memory=memory)
-
-print(conversation.run("What is the capital of France?"))
-print(conversation.run("And what is its population?"))
-```
-
-#### JavaScript
-```javascript
-import { ChatOpenAI } from "@langchain/openai";
-import { ConversationChain } from "langchain/chains";
-import { ConversationBufferMemory } from "langchain/memory";
-
-const model = new ChatOpenAI({ modelName: "gpt-4-turbo", openAIApiKey: "YOUR_API_KEY" });
-const memory = new ConversationBufferMemory();
-const conversation = new ConversationChain({ llm: model, memory });
-
-async function chat() {
-    const response1 = await conversation.call({ input: "What is the capital of France?" });
-    console.log(response.content);
-
-    const followUpResponse = await conversation.call({ input: "And what is its population?" });
-    console.log(followUp.response);
-}
-
-chat();
-```
-
-## 3.5 Example: Q&A Bot with Memory Integration
-Here's a refined chatbot that retains memory for multi-turn conversations.
-
-#### Python
-```python
-import openai
-
-class MemoryAgent:
-    def __init__(self):
-        self.memory = []
-
-    def chat(self, user_input):
-        self.memory.append({"role": "user", "content": user_input})
-        response = openai.ChatCompletion.create(
-            model="gpt-4-turbo", messages=self.memory
-        )
-        message = response["choices"][0]["message"]
-        self.memory.append(message)
-        return message["content"]
-
-agent = MemoryAgent()
-print(agent.chat("Who discovered gravity?"))
-print(agent.chat("Tell me more about their work."))
-```
-
-#### JavaScript
-```javascript
-import OpenAI from 'openai';
-
-const openai = new OpenAI({ apiKey: 'YOUR_API_KEY' });
-
-class MemoryAgent {
+class GeminiResearchAgent {
   constructor() {
-    this.memory = [];
+    this.model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    this.chat = null;
   }
 
-  async chat(userInput) {
-    this.memory.push({ role: 'user', content: userInput });
+  async init() {
+    this.chat = await this.model.startChat({
+      systemInstruction: "You are a helpful research assistant who provides concise and clear answers.",
+      history: []
+    });
+  }
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4-turbo',
+  async interact(prompt) {
+    const result = await this.chat.sendMessage(prompt);
+    return result.response.text();
+  }
+}
+
+const run = async () => {
+  const agent = new GeminiResearchAgent();
+  await agent.init();
+  console.log(await agent.interact("Explain generative AI."));
+  console.log(await agent.interact("What are some common use cases?"));
+};
+
+run();
+```
+
+### 3.3.3 Example 3: Stateful AI Agent using Claude API (Python)
+```python
+import anthropic
+
+client = anthropic.Anthropic(api_key="YOUR_CLAUDE_API_KEY")
+
+class ClaudeAgent:
+    def __init__(self):
+        self.memory = [
+            {"role": "user", "content": "You are an expert AI agent providing clear explanations."}
+        ]
+        self.model = "claude-3-haiku-2024-02-25"
+
+    def interact(self, user_input):
+        self.memory.append({"role": "user", "content": user_input})
+        response = client.messages.create(
+            model=self.model,
+            max_tokens=512,
+            messages=self.memory
+        )
+        reply = response.content[0].text
+        self.memory.append({"role": "assistant", "content": reply})
+        return reply
+
+agent = ClaudeAgent()
+print(agent.interact("What is reinforcement learning?"))
+print(agent.interact("Can you give me an example?"))
+```
+
+### Example 3: Stateful AI Agent using Claude API (JavaScript)
+```javascript
+import { Anthropic } from "anthropic";
+
+const anthropic = new Anthropic({ apiKey: "YOUR_CLAUDE_API_KEY" });
+
+class ClaudeAgent {
+  constructor() {
+    this.memory = [
+      {
+        role: "user",
+        content: "You are an expert AI agent providing clear explanations.",
+      },
+    ];
+    this.model = "claude-3-haiku-2024-02-25";
+  }
+
+  async interact(userInput) {
+    this.memory.push({ role: "user", content: userInput });
+
+    const response = await anthropic.messages.create({
+      model: this.model,
+      max_tokens: 512,
       messages: this.memory,
     });
 
-    const message = response.choices[0].message;
-    this.memory.push(message);
+    const reply = response.content[0].text;
+    this.memory.push({ role: "assistant", content: reply });
 
-    return message.content;
+    return reply;
   }
 }
 
-(async () => {
-  const agent = new MemoryAgent();
-  console.log(await agent.chat('Who discovered gravity?'));
-  console.log(await agent.chat('Tell me more about their work.'));
-})();
+const run = async () => {
+  const agent = new ClaudeAgent();
+  console.log(await agent.interact("What is reinforcement learning?"));
+  console.log(await agent.interact("Can you give me an example?"));
+};
+
+run();
+```
+
+## 3.4 Enhancing Agents with Short-Term and Persistent Memory
+
+In simple agents, memory is often limited to short-term context: the agent remembers only what has been said in the current session. However, real-world agents need **persistent memory** — the ability to remember facts, interactions, or references across sessions.
+
+This is where frameworks like **LangChain** help: they provide structured memory management and integration with vector stores like FAISS, Weaviate, or Chroma.
+
+### ✅ Types of Memory in AI Agents
+| **Type**         | **Scope**                 | **Example Use**                             |
+|------------------|---------------------------|----------------------------------------------|
+| Short-Term       | Session-level (RAM)       | Holding dialogue turns in a chat             |
+| Long-Term        | Cross-session (DB)        | Remembering user preferences or past queries |
+| Retrieval Memory | Embedded semantic search  | Q&A over large documents                     |
+
+### 🧠 Example: Short-Term Conversational Memory with LangChain (Python)
+```python
+from langchain.chat_models import ChatOpenAI
+from langchain.memory import ConversationBufferMemory
+from langchain.chains import ConversationChain
+
+llm = ChatOpenAI(model_name="gpt-4", temperature=0)
+
+memory = ConversationBufferMemory()
+agent = ConversationChain(llm=llm, memory=memory)
+
+print(agent.run("Hi, I'm working on an AI project."))
+print(agent.run("Can you remind me what I just said?"))
+```
+
+## 3.5 Persistent Q&A Agent with Vector Memory (LangChain + FAISS)
+
+Let’s create a **Q&A agent** that uses **retrieval-augmented generation (RAG)** to persist and recall factual knowledge, even when the original chat history isn’t retained.
+
+### 💬 Step 1: Prepare Knowledge Base
+```python
+from langchain.vectorstores import FAISS
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.document_loaders import TextLoader
+from langchain.text_splitter import CharacterTextSplitter
+
+loader = TextLoader("data/ai_fundamentals.txt")
+docs = loader.load()
+splitter = CharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+documents = splitter.split_documents(docs)
+
+embeddings = OpenAIEmbeddings()
+vectorstore = FAISS.from_documents(documents, embeddings)
+```
+
+### 💬 Step 2: Create a RAG-Enabled QA Agent
+```python
+from langchain.chains import RetrievalQA
+from langchain.chat_models import ChatOpenAI
+
+qa_chain = RetrievalQA.from_chain_type(
+    llm=ChatOpenAI(model_name="gpt-4"),
+    retriever=vectorstore.as_retriever()
+)
+
+print(qa_chain.run("What is reinforcement learning?"))
+print(qa_chain.run("List applications of generative AI."))
 ```
 
 ## 3.6 Best Practices for Single-Agent Systems

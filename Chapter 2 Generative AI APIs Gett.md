@@ -199,7 +199,10 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 const genAI = new GoogleGenerativeAI("YOUR_API_KEY");
 
 async function getGeminiResponse() {
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({
+        model: "gemini-1.5-flash",
+        systemInstruction: "You are a knowledgeable physics tutor. Explain complex topics in a clear and concise way."
+    });
     const result = await model.generateContent("Explain quantum mechanics.");
     console.log(result.response.text());
 }

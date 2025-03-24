@@ -220,16 +220,16 @@ run();
 
 In simple agents, memory is often limited to short-term context: the agent remembers only what has been said in the current session. However, real-world agents need **persistent memory** — the ability to remember facts, interactions, or references across sessions.
 
-This is where frameworks like **LangChain** help: they provide structured memory management and integration with vector stores like FAISS, Weaviate, or Chroma.
+This is where frameworks like **LangChain** help: they provide structured memory management and integration with vector databases (also called vector stores) like FAISS, Weaviate, or Pinecone, which enable semantic search by embedding documents into a high-dimensional space.
 
-### ✅ Types of Memory in AI Agents
+### Types of Memory in AI Agents
 | **Type**         | **Scope**                 | **Example Use**                             |
 |------------------|---------------------------|----------------------------------------------|
 | Short-Term       | Session-level (RAM)       | Holding dialogue turns in a chat             |
 | Long-Term        | Cross-session (DB)        | Remembering user preferences or past queries |
 | Retrieval Memory | Embedded semantic search  | Q&A over large documents                     |
 
-### 🧠 Example: Short-Term Conversational Memory with LangChain (Python)
+### Example: Short-Term Conversational Memory with LangChain (Python)
 ```python
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
@@ -246,9 +246,9 @@ print(agent.run("Can you remind me what I just said?"))
 
 ## 3.5 Persistent Q&A Agent with Vector Memory (LangChain + FAISS)
 
-Let’s create a **Q&A agent** that uses **retrieval-augmented generation (RAG)** to persist and recall factual knowledge, even when the original chat history isn’t retained.
+Let’s create a **Q&A agent** that uses **retrieval-augmented generation (RAG)** a technique where the agent first retrieves relevant documents from a knowledge base and then uses a language model to generate informed responses to persist and recall factual knowledge, even when the original chat history isn’t retained.
 
-### 💬 Step 1: Prepare Knowledge Base
+### Step 1: Prepare Knowledge Base
 ```python
 from langchain.vectorstores import FAISS
 from langchain.embeddings import OpenAIEmbeddings
@@ -264,7 +264,7 @@ embeddings = OpenAIEmbeddings()
 vectorstore = FAISS.from_documents(documents, embeddings)
 ```
 
-### 💬 Step 2: Create a RAG-Enabled QA Agent
+### Step 2: Create a RAG-Enabled QA Agent
 ```python
 from langchain.chains import RetrievalQA
 from langchain.chat_models import ChatOpenAI

@@ -26,7 +26,8 @@ graph TD
 ## 3.3 Implementing a Basic Single-Agent System
 Let’s build stateful AI agents using OpenAI’s Agents SDK, Gemini API, and Claude’s system message approach.
 
-### 3.3.1 Example 1: Stateful AI Agent using OpenAI (Python)
+### 3.3.1 Stateful AI Agent using OpenAI 
+**Python**
 ```python
 from openai import OpenAI
 
@@ -53,7 +54,7 @@ print(agent.interact("What are large language models?"))
 print(agent.interact("Give me an example of how they're used."))
 ```
 
-### Example 1: Stateful AI Agent using OpenAI (JavaScript)
+**JavaScript**
 ```javascript
 import { OpenAI } from "openai";
 
@@ -88,7 +89,8 @@ const agent = new ResearchAssistantAgent();
 })();
 ```
 
-### 3.3.2 Example 2: Stateful AI Agent using Gemini API (Python)
+### 3.3.2 Stateful AI Agent using Gemini API 
+**Python**
 ```python
 import google.generativeai as genai
 
@@ -110,7 +112,7 @@ print(agent.interact("Explain generative AI."))
 print(agent.interact("What are some common use cases?"))
 ```
 
-### Example 2: Stateful AI Agent using Gemini API (JavaScript)
+**JavaScript**
 ```javascript
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
@@ -145,7 +147,8 @@ const run = async () => {
 run();
 ```
 
-### 3.3.3 Example 3: Stateful AI Agent using Claude API (Python)
+### 3.3.3 Stateful AI Agent using Claude API 
+**Python**
 ```python
 import anthropic
 
@@ -174,7 +177,7 @@ print(agent.interact("What is reinforcement learning?"))
 print(agent.interact("Can you give me an example?"))
 ```
 
-### Example 3: Stateful AI Agent using Claude API (JavaScript)
+**JavaScript**
 ```javascript
 import { Anthropic } from "anthropic";
 
@@ -285,6 +288,8 @@ print(qa_chain.run("List applications of generative AI."))
 - **Optimize Performance and Cost**: Employ caching, batching, and intelligent response filtering to manage API usage effectively.
 
 ---
+
+## **Conclusion**
 
 This chapter covered building a single-agent AI system, beginning with simple implementations using OpenAI Agents SDK, Gemini, and Claude. We then introduced advanced concepts like memory and persistence, demonstrated practical examples, and outlined best practices for developing robust single-agent applications. The next chapter explores multi-agent systems, extending these concepts further.
 

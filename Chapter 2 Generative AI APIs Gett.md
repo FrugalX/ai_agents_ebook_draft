@@ -110,7 +110,7 @@ Below is an illustrative representation of how AI has evolved over time:
 
 ## **2.4 Your First Generative AI API Call**
 
-### **Using OpenAI’s Responses API with Function Calling**
+### **2.4.1 Using OpenAI’s Responses API with Function Calling**
 
 #### **Python Example**:
 
@@ -147,38 +147,7 @@ async function getResponse() {
 getResponse();
 ```
 
-### **Using Claude API**
-
-#### **Python Example**:
-
-```python
-import anthropic
-client = anthropic.Anthropic(api_key="YOUR_API_KEY")
-
-response = client.messages.create(
-    model="claude-3",
-    messages=[{"role": "user", "content": "Summarize this article."}]
-)
-print(response["content"])
-```
-
-#### **JavaScript Example**:
-
-```javascript
-import { Anthropic } from "anthropic";
-const anthropic = new Anthropic({ apiKey: "YOUR_API_KEY" });
-
-async function getClaudeResponse() {
-    const response = await anthropic.messages.create({
-        model: "claude-3",
-        messages: [{ role: "user", content: "Summarize this article." }]
-    });
-    console.log(response.content);
-}
-getClaudeResponse();
-```
-
-### **Using Gemini API**
+### **2.4.2 Using Gemini API**
 
 #### **Python Example**:
 
@@ -207,38 +176,6 @@ async function getGeminiResponse() {
     console.log(result.response.text());
 }
 getGeminiResponse();
-```
-
-### **Using Mistral API**
-
-#### **Python Example**:
-
-```python
-import requests
-
-API_KEY = "YOUR_API_KEY"
-headers = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
-data = {"model": "mistral-large", "messages": [{"role": "user", "content": "Describe the Eiffel Tower."}]}
-response = requests.post("https://api.mistral.ai/v1/chat/completions", headers=headers, json=data)
-print(response.json()["choices"][0]["message"]["content"])
-```
-
-#### **JavaScript Example**:
-
-```javascript
-import axios from "axios";
-const API_KEY = "YOUR_API_KEY";
-
-async function getMistralResponse() {
-    const response = await axios.post("https://api.mistral.ai/v1/chat/completions", {
-        model: "mistral-large",
-        messages: [{ role: "user", content: "Describe the Eiffel Tower." }]
-    }, {
-        headers: { Authorization: `Bearer ${API_KEY}`, "Content-Type": "application/json" }
-    });
-    console.log(response.data.choices[0].message.content);
-}
-getMistralResponse();
 ```
 
 ---

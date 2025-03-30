@@ -270,9 +270,6 @@ This research tool can be integrated into **academic search engines, AI-driven r
 ### **Learning Outcome**
 By the end of this tutorial, you will create a game where AI-powered agents dynamically interact based on predefined rules.
 
-- Use **OpenAI’s Agents SDK** for in-game AI.
-- Use **Reinforcement Learning** concepts for adaptive behavior.
-
 ### **Understanding AI Agents in Gaming**
 - **NPC Behavior Agent**: Controls non-playable characters.
 - **Combat Strategy Agent**: Determines attack/defense strategies.
@@ -287,7 +284,8 @@ graph TD
     NPC_Agent2 -->|Responds based on| Player_actions
 ```
 
-### **Python: AI-Powered NPCs Using OpenAI Agents SDK**
+### **7.7.1 AI-Powered NPC Behaviour**
+**Python**
 ```python
 from openai import OpenAI
 
@@ -303,7 +301,7 @@ def npc_behavior(npc_role):
 print(npc_behavior("Warrior"))
 ```
 
-### **JavaScript: AI-Powered NPCs Using OpenAI Agents SDK**
+**JavaScript**
 ```javascript
 import { OpenAI } from "openai";
 
@@ -320,9 +318,121 @@ async function npcBehavior(npcRole) {
 npcBehavior("Warrior");
 ```
 
-### **Enhancing AI Characters with Reinforcement Learning**
-- Introduce **policy-based and reward-driven learning**.
-- Implement **Unity ML-Agents** or **OpenAI Gym** for in-game intelligence.
+### **7.7.2 Autonomous NPC with Basic Decision-Making**
+**JavaScript**
+```javascript
+import { OpenAI } from "openai";
+
+const openai = new OpenAI({ apiKey: "OPENAI_API_KEY" });
+
+async function npcAgent(state) {
+    const response = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [
+            { role: "system", content: "You are an NPC in a survival game with goals to stay alive and gather resources." },
+            { role: "user", content: `Current state: ${state}. What should the NPC do next?` }
+        ]
+    });
+
+    const action = response.choices[0].message.content;
+    console.log("NPC Action:", action);
+    return action;
+}
+
+// Example scenario
+npcAgent("Low health, near a water source, with no food");
+```
+- The NPC is making autonomous decisions based on its state, aiming to survive.
+- It could be extended to have memory (remembering past states) or a goal system.
+
+### **7.7.3 AI Agent for Dynamic Quest Generation (with Decision Tree)**
+**JavaScript**
+```javascript
+import { OpenAI } from "openai";
+
+const openai = new OpenAI({ apiKey: "OPENAI_API_KEY" });
+
+async function questAgent(playerLevel) {
+    const response = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [
+            { role: "system", content: "You are an AI quest designer. Generate a quest suitable for the player's level." },
+            { role: "user", content: `Player is at level ${playerLevel}. Design a challenging quest.` }
+        ]
+    });
+
+    console.log("Quest:", response.choices[0].message.content);
+    return response.choices[0].message.content;
+}
+
+// Simulate dynamic quest creation
+questAgent(15);
+```
+- The agent adapts the quest based on the player’s level, dynamically adjusting the difficulty.
+- This can be expanded into an AI-driven quest system that evolves as the player progresses.
+
+### **7.7.4 AI Agent for Tactical Combat Strategy**
+**JavaScript**
+```javascript
+import { OpenAI } from "openai";
+
+const openai = new OpenAI({ apiKey: "OPENAI_API_KEY" });
+
+async function combatAgent(enemyStatus, playerStatus) {
+    const response = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [
+            { role: "system", content: "You are an AI strategist for a tactical combat game." },
+            { role: "user", content: `Enemy Status: ${enemyStatus}, Player Status: ${playerStatus}. What should the player do next?` }
+        ]
+    });
+
+    console.log("Combat Strategy:", response.choices[0].message.content);
+    return response.choices[0].message.content;
+}
+
+// Example combat scenario
+combatAgent("Low health, strong position", "Full health, flanking opportunity");
+```
+- The agent is making decisions in real-time based on combat conditions.
+- It can be enhanced with reinforcement learning or simulation-based decision-making for more complex strategies.
+
+### **7.7.5 AI Agent with Simple Memory for Storytelling**
+**JavaScript**
+```javascript
+import { OpenAI } from "openai";
+
+const openai = new OpenAI({ "OPENAI_API_KEY" });
+
+const npcMemory = [];
+
+async function storyAgent(playerAction) {
+    npcMemory.push(playerAction);
+
+    const response = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [
+            { role: "system", content: "You are a storyteller NPC who remembers the player's actions." },
+            { role: "user", content: `Player just ${playerAction}. Recall their previous actions and respond.` },
+            { role: "assistant", content: `Previous actions: ${npcMemory.join(", ")}.` }
+        ],
+        max_tokens: 200,
+    });
+
+    console.log("Story Response:", response.choices[0].message.content);
+    return response.choices[0].message.content;
+}
+
+storyAgent("saved a village from bandits");
+storyAgent("helped a merchant find lost goods");
+```
+- The agent has memory of past interactions, allowing it to build a narrative thread over time.
+- This leads to personalized, evolving interactions with the player.
+
+### **How to Build More Advanced AI Agents for gaming?**
+- **Reinforcement Learning (RL):** Combine LLMs with RL for agents that learn from gameplay.
+- **Memory & State Management:** Use databases or in-memory stores to manage persistent state.
+- **Multi-Agent Systems:** Implement AI agents that interact with each other, simulating complex ecosystems.
 
 ### **Alternative Approaches**
 - **Google Gemini API**: For dynamic character dialogues and real-time adaptations.

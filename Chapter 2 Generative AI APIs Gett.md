@@ -110,7 +110,7 @@ Below is an illustrative representation of how AI has evolved over time:
 
 ## **2.4 Your First Generative AI API Call**
 
-### **2.4.1 Using OpenAI’s Responses API with Function Calling**
+### **Using OpenAI’s API**
 
 #### **Python Example**:
 
@@ -147,7 +147,7 @@ async function getResponse() {
 getResponse();
 ```
 
-### **2.4.2 Using Gemini API**
+### **Using Gemini API**
 
 #### **Python Example**:
 

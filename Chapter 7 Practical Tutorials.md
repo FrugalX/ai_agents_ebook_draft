@@ -268,20 +268,33 @@ This research tool can be integrated into **academic search engines, AI-driven r
 ## 7.7 Building a Game with Multi-Agent Characters
 
 ### **Learning Outcome**
-By the end of this tutorial, you will create a game where AI-powered agents dynamically interact based on predefined rules.
+By the end of this tutorial, you will learn to develop AI-powered game features (NPCs, quests, combat strategies).
 
 ### **Understanding AI Agents in Gaming**
-- **NPC Behavior Agent**: Controls non-playable characters.
-- **Combat Strategy Agent**: Determines attack/defense strategies.
-- **Environment Interaction Agent**: Adapts the game world based on AI decisions.
+AI agents in gaming are autonomous entities that make decisions, adapt to changing environments, and interact with players or other agents to create dynamic and immersive experiences. Unlike simple scripted behaviors, AI agents can learn, strategize, and respond in real-time.
+
+**Key Types of AI Agents in Gaming**
+- **NPC Behavior Agent**: Controls non-playable characters (NPCs) to create lifelike interactions.
+- **Combat Strategy Agent**: Determines optimal attack/defense strategies during combat.
+- **Environment Interaction Agent**: Adapts the game world dynamically based on AI decisions.
+- **Dynamic Quest Generation Agent**: Creates unique quests based on player progression and in-game events.
+- **AI-Powered Enemy Behavior Agent**: Simulates intelligent enemy behavior that adapts over time.
+- **Storytelling and Memory Agent**: Enhances narrative depth by remembering past player actions.
 
 ```mermaid
 graph TD
     Player -->|Interacts with| GameEngine
-    GameEngine -->|Manages| NPC_Agent1
-    GameEngine -->|Manages| NPC_Agent2
-    NPC_Agent1 -->|Communicates with| NPC_Agent2
-    NPC_Agent2 -->|Responds based on| Player_actions
+    GameEngine -->|Manages| NPC_Behavior_Agent
+    GameEngine -->|Manages| Combat_Strategy_Agent
+    GameEngine -->|Manages| Quest_Generation_Agent
+    NPC_Behavior_Agent -->|Communicates with| Combat_Strategy_Agent
+    Combat_Strategy_Agent -->|Responds based on| Player_Actions
+    Quest_Generation_Agent -->|Generates quests based on| Player_Progress
+    NPC_Behavior_Agent -->|Influences| GameWorld
+    Combat_Strategy_Agent -->|Alters| GameWorld
+    GameWorld -->|Provides context to| AI_Agents
+    Player -->|Influences directly| NPC_Behavior_Agent
+    Player -->|Influences directly| Quest_Generation_Agent
 ```
 
 ### **7.7.1 AI-Powered NPC Behaviour**
@@ -319,6 +332,34 @@ npcBehavior("Warrior");
 ```
 
 ### **7.7.2 Autonomous NPC with Basic Decision-Making**
+**Python**
+```python
+from openai import OpenAI
+
+# Initialize OpenAI with the API key
+client = OpenAI(
+  api_key='OPENAI_API_KEY',  
+)
+
+def npc_agent(state):
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are an NPC in a survival game with goals to stay alive and gather resources."},
+                {"role": "user", "content": f"Current state: {state}. What should the NPC do next?"}
+            ]
+        )
+        action = response.choices[0].message.content
+        print("NPC Action:", action)
+        return action
+    except Exception as error:
+        print("Error:", error)
+
+# Example scenario
+npc_agent("Low health, near a water source, with no food")
+```
+
 **JavaScript**
 ```javascript
 import { OpenAI } from "openai";
@@ -346,6 +387,34 @@ npcAgent("Low health, near a water source, with no food");
 - It could be extended to have memory (remembering past states) or a goal system.
 
 ### **7.7.3 AI Agent for Dynamic Quest Generation (with Decision Tree)**
+**Python**
+```python
+from openai import OpenAI
+
+# Initialize OpenAI with the API key
+client = OpenAI(
+  api_key='OPENAI_API_KEY',  
+)
+
+def quest_agent(player_level):
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are an AI quest designer. Generate a quest suitable for the player's level."},
+                {"role": "user", "content": f"Player is at level {player_level}. Design a challenging quest."}
+            ]
+        )
+        quest = response.choices[0].message.content
+        print("Quest:", quest)
+        return quest
+    except Exception as error:
+        print("Error:", error)
+
+# Simulate dynamic quest creation
+quest_agent(15)
+```
+
 **JavaScript**
 ```javascript
 import { OpenAI } from "openai";
@@ -372,6 +441,34 @@ questAgent(15);
 - This can be expanded into an AI-driven quest system that evolves as the player progresses.
 
 ### **7.7.4 AI Agent for Tactical Combat Strategy**
+**Python**
+```python
+from openai import OpenAI
+
+# Initialize OpenAI with the API key
+client = OpenAI(
+  api_key=OPENAI_API_KEY',  
+)
+
+def combat_agent(enemy_status, player_status):
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are an AI strategist for a tactical combat game."},
+                {"role": "user", "content": f"Enemy Status: {enemy_status}, Player Status: {player_status}. What should the player do next?"}
+            ]
+        )
+        strategy = response.choices[0].message.content
+        print("Combat Strategy:", strategy)
+        return strategy
+    except Exception as error:
+        print("Error:", error)
+
+# Example combat scenario
+combat_agent("Low health, strong position", "Full health, flanking opportunity")
+```
+
 **JavaScript**
 ```javascript
 import { OpenAI } from "openai";
@@ -398,6 +495,40 @@ combatAgent("Low health, strong position", "Full health, flanking opportunity");
 - It can be enhanced with reinforcement learning or simulation-based decision-making for more complex strategies.
 
 ### **7.7.5 AI Agent with Simple Memory for Storytelling**
+**Python**
+```python
+from openai import OpenAI
+
+# Initialize OpenAI with the API key
+client = OpenAI(
+  api_key='OPENAI_API_KEY',  
+)
+
+# Simple memory implementation
+npc_memory = []
+
+def story_agent(player_action):
+    npc_memory.append(player_action)
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are a storyteller NPC who remembers the player's actions."},
+                {"role": "user", "content": f"Player just {player_action}. Recall their previous actions and respond."},
+                {"role": "assistant", "content": f"Previous actions: {', '.join(npc_memory)}."}
+            ]
+        )
+        story_response = response.choices[0].message.content
+        print("Story Response:", story_response)
+        return story_response
+    except Exception as error:
+        print("Error:", error)
+
+# Example interactions
+story_agent("saved a village from bandits")
+story_agent("helped a merchant find lost goods")
+```
+
 **JavaScript**
 ```javascript
 import { OpenAI } from "openai";
@@ -415,8 +546,7 @@ async function storyAgent(playerAction) {
             { role: "system", content: "You are a storyteller NPC who remembers the player's actions." },
             { role: "user", content: `Player just ${playerAction}. Recall their previous actions and respond.` },
             { role: "assistant", content: `Previous actions: ${npcMemory.join(", ")}.` }
-        ],
-        max_tokens: 200,
+        ]
     });
 
     console.log("Story Response:", response.choices[0].message.content);

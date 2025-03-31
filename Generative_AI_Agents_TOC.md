@@ -73,7 +73,7 @@
 7.4 Developing a Creative Content Assistant  
 7.5 Creating a Multi-Agent News Aggregator  
 7.6 Designing a Self-Orchestrated Research Tool  
-7.7 Building a Game with Multi-Agent Characters  
+7.7 Designing Dynamic Games with AI-Powered Agents  
 
 ---
 

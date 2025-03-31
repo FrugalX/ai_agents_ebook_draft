@@ -2,18 +2,18 @@
 
 ## 7.1 Getting Started with Generative AI Agents
 
-This chapter provides hands-on tutorials for building AI agents using various APIs, ensuring a balanced representation of OpenAI, Google Gemini, Anthropic Claude, and open-source models like Mistral. We will cover step-by-step implementations for building single-agent and multi-agent systems.
+This chapter provides hands-on tutorials for building AI agents using various APIs, ensuring a balanced representation of OpenAI, Google Gemini or Anthropic Claude. We will cover step-by-step implementations for building single-agent and multi-agent systems.
 
 ## 7.2 Setting Up Your Environment
 
 Before we dive into the tutorials, install the necessary dependencies:
 
 ```bash
-pip install openai anthropic google-generativeai langchain mistralai
+pip install openai anthropic google-generativeai langchain
 ```
 
 ### API Keys
-Obtain API keys from OpenAI (for the Agents SDK & Responses API), Anthropic (Claude API), Google (Gemini API), and Mistral for open-source LLMs.
+Obtain API keys from OpenAI (for the Agents SDK & Responses API), Anthropic (Claude API), and Google (Gemini API) for open-source LLMs.
 
 ## 7.3  Building An AI Chatbot for Customer Support
 
@@ -265,7 +265,7 @@ researchAssistant();
 
 This research tool can be integrated into **academic search engines, AI-driven research assistants, or corporate knowledge bases**.
 
-## 7.7 Building a Game with Multi-Agent Characters
+## 7.7 Designing Dynamic Games with AI-Powered Agents
 
 ### **Learning Outcome**
 By the end of this tutorial, you will learn to develop AI-powered game features (NPCs, quests, combat strategies).
@@ -280,6 +280,8 @@ AI agents in gaming are autonomous entities that make decisions, adapt to changi
 - **Dynamic Quest Generation Agent**: Creates unique quests based on player progression and in-game events.
 - **AI-Powered Enemy Behavior Agent**: Simulates intelligent enemy behavior that adapts over time.
 - **Storytelling and Memory Agent**: Enhances narrative depth by remembering past player actions.
+
+The diagram below illustrates the dynamic interactions between the player, game engine, AI agents, and the game world. The player engages with the game engine, which manages various AI agents, including the NPC Behavior Agent, Combat Strategy Agent, and Quest Generation Agent. These agents operate autonomously but also communicate with each other—for example, the NPC Behavior Agent interacts with the Combat Strategy Agent to create cohesive gameplay experiences. Player actions directly influence AI agents, shaping NPC behaviors and quest outcomes, while the AI agents respond based on real-time game contexts. Additionally, the agents actively influence the game world, altering environments, strategies, and narratives based on decisions made during gameplay.
 
 ```mermaid
 graph TD
@@ -296,6 +298,8 @@ graph TD
     Player -->|Influences directly| NPC_Behavior_Agent
     Player -->|Influences directly| Quest_Generation_Agent
 ```
+
+**Note:** The tutorials provided below focus on specific types of AI agents within this system, such as NPC behavior, combat strategies, and dynamic quest generation. They do not cover the full range of agents or the complete game architecture depicted in the diagram. This overview serves to illustrate how these agents fit into a broader, dynamic gaming environment.
 
 ### **7.7.1 AI-Powered NPC Behaviour**
 **Python**

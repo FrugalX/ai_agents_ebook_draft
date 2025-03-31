@@ -21,62 +21,369 @@ Obtain API keys from OpenAI (for the Agents SDK & Responses API), Anthropic (Cla
 By the end of this tutorial, you will have a fully functional AI chatbot capable of handling customer queries efficiently. The chatbot will be implemented using **OpenAI’s Agents SDK**, **Gemini API**, and **Claude API**, with both **Python and JavaScript examples**.
 
 ```mermaid
-sequenceDiagram
-    participant User
-    participant Chatbot
-    participant API
-
-    User->>Chatbot: Sends a query
-    Chatbot->>Chatbot: Process query & retrieve context
-    Chatbot->>API: Call external knowledge base
-    API-->>Chatbot: Return relevant data
-    Chatbot-->>User: Generate response
+graph TD
+   Customer -->|Interacts with| SupportSystem
+    SupportSystem -->|Handles queries| BasicSupportAgent
+    SupportSystem -->|Uses user history| ContextualSupportAgent
+    SupportSystem -->|Troubleshoots issues| TroubleshootingAgent
+    SupportSystem -->|Supports globally| MultilingualSupportAgent
+    SupportSystem -->|Anticipates needs| ProactiveSupportAgent
+    SupportSystem -->|Analyzes data| DataDrivenSupportAgent
+    BasicSupportAgent -->|Sends response| Customer
+    ContextualSupportAgent -->|Sends response| Customer
+    TroubleshootingAgent -->|Sends response| Customer
+    MultilingualSupportAgent -->|Sends response| Customer
+    ProactiveSupportAgent -->|Sends response| Customer
+    DataDrivenSupportAgent -->|Sends response| Customer
 ```
+
+The diagram illustrates a **Customer Support System** powered by various specialized AI agents, all designed to enhance the customer experience. At the center is the **Support System**, which manages multiple agents, each focusing on distinct aspects of customer support. The **Basic Support Agent** handles straightforward queries, providing quick, standardized responses. The **Contextual Support Agent** leverages user history to offer personalized assistance, improving engagement for repeat customers. For technical issues, the **Troubleshooting Agent** steps in, diagnosing problems and guiding users through solutions. To support a global audience, the **Multilingual Support Agent** delivers responses in multiple languages, ensuring accessibility. The **Proactive Support Agent** anticipates customer needs by analyzing behavior patterns, offering proactive assistance even before issues arise. Lastly, the **Data-Driven Support Agent** analyzes trends and historical data to deliver insightful, informed responses. Each of these agents communicates seamlessly with the customer, ensuring a comprehensive, responsive support system.
 
 ### **Step 1: Setting Up the AI Chatbot**
 - Choose your AI provider (OpenAI, Gemini, or Claude).
 - Define chatbot instructions and expected behavior.
 
-### **Python: AI Chatbot with OpenAI Agents SDK**
+### **7.3.1 Basic Customer Support Chatbot**
+Handles FAQs and basic queries.
+
+**Python**
 ```python
 from openai import OpenAI
 
-client = OpenAI(api_key="YOUR_API_KEY")
+# Initialize OpenAI with the API key
+client = OpenAI(
+  api_key='OPENAI_API_KEY',
+)
 
-def chat_with_ai(message):
-    response = client.beta.threads.create_and_run(
-        assistant_id="your_assistant_id",
-        thread={"messages": [{"role": "user", "content": message}]}
-    )
-    return response
+def basic_support(query):
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are a basic customer support chatbot for an online store."},
+                {"role": "user", "content": query}
+            ]
+        )
+        print("Chatbot:", response.choices[0].message.content)
+    except Exception as e:
+        print("Error:", e)
 
-print(chat_with_ai("What are your store hours?"))
+basic_support("What is your return policy?")
 ```
 
-### **JavaScript: AI Chatbot with OpenAI Agents SDK**
+**JavaScript**
 ```javascript
 import { OpenAI } from "openai";
 
-const openai = new OpenAI({ apiKey: "YOUR_API_KEY" });
+const openai = new OpenAI({ apiKey: 'OPENAI_API_KEY' });
 
-async function chatWithAI(message) {
-    const response = await openai.beta.threads.createAndRun({
-        assistant_id: "your_assistant_id",
-        thread: { messages: [{ role: "user", content: message }] },
-    });
-    console.log(response);
+async function basicSupport(query) {
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: "You are a basic customer support chatbot for an online store." },
+                { role: "user", content: query }
+            ]
+        });
+        console.log("Chatbot:", response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error:", error);
+    }
 }
 
-chatWithAI("What are your store hours?");
+basicSupport("What is your return policy?");
 ```
+
+- **Focus**: Simple, rule-based responses for common questions.
+
+- **Key Point**: Great for handling repetitive queries quickly.
+
+### **7.3.2 Advanced Support Agent with Contextual Awareness**
+Remembers user interactions for a personalized experience.
+
+**Python**
+```python
+from openai import OpenAI
+
+# Initialize OpenAI with the API key
+client = OpenAI(
+  api_key='OPENAI_API_KEY'
+)
+
+def contextual_support(user_id, query):
+    try:
+        context = f"Previous interactions with user {user_id} include a complaint about delayed delivery."
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are an advanced support agent with contextual awareness."},
+                {"role": "system", "content": context},
+                {"role": "user", "content": query}
+            ]
+        )
+        print("Advanced Agent:", response.choices[0].message.content)
+    except Exception as e:
+        print("Error:", e)
+
+contextual_support("12345", "Can you update me on my refund status?")
+```
+
+**JavaScript**
+```javascript
+import { OpenAI } from "openai";
+
+const openai = new OpenAI({ apiKey: "OPENAI_API_KEY" });
+
+async function contextualSupport(userId, query) {
+    try {
+        const context = `Previous interactions with user ${userId} include a complaint about delayed delivery.`;
+        const response = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: "You are an advanced support agent with contextual awareness." },
+                { role: "system", content: context },
+                { role: "user", content: query }
+            ]
+        });
+        console.log("Advanced Agent:", response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+contextualSupport("", "Can you update me on my refund status?");
+```
+- **Focus**: Personalized responses based on user history.
+
+- **Key Point**: Adds emotional intelligence and contextual understanding.
+
+### **7.3.3 Troubleshooting Assistant for Technical Issues**
+Guides users through technical problem-solving steps.
+
+**Python**
+```python
+from openai import OpenAI
+
+# Initialize OpenAI with the API key
+client = OpenAI(
+  api_key='OPENAI_API_KEY', 
+)
+
+def data_driven_support(query):
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are a data-driven support agent using analytics to provide insights."},
+                {"role": "user", "content": query}
+            ]
+        )
+        print("Data-Driven Support:", response.choices[0].message.content)
+    except Exception as e:
+        print("Error:", e)
+
+data_driven_support("Why is my order delayed more than usual?")
+```
+
+**JavaScript**
+```javascript
+import { OpenAI } from "openai";
+
+const openai = new OpenAI({ apiKey: "OPENAI_API_KEY" });
+
+async function troubleshootingAssistant(issue) {
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: "You are a technical support agent specializing in troubleshooting software issues." },
+                { role: "user", content: issue }
+            ]
+        });
+        console.log("Tech Support:", response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+troubleshootingAssistant("My app crashes when I try to open it.");
+```
+- **Focus**: Step-by-step technical support.
+
+- **Key Point**: AI breaks down complex issues into manageable troubleshooting steps.
+
+### **7.3.4 Multilingual Customer Support Agent**
+Handles queries in multiple languages, providing global support.
+
+**Python**
+```python
+from openai import OpenAI
+
+# Initialize OpenAI with the API key
+client = OpenAI(
+  api_key='OPENAI_API_KEY'
+)
+
+def multilingual_support(query, language="en"):
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": f"You are a multilingual customer support agent, fluent in {language}."},
+                {"role": "user", "content": query}
+            ]
+        )
+        print("Multilingual Support:", response.choices[0].message.content)
+    except Exception as e:
+        print("Error:", e)
+
+multilingual_support("¿Cómo puedo rastrear mi pedido?", "es")
+```
+
+**JavaScript**
+```javascript
+import { OpenAI } from "openai";
+
+const openai = new OpenAI({ apiKey: "OPENAI_API_KEY" });
+
+async function multilingualSupport(query, language = "en") {
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: `You are a multilingual customer support agent, fluent in ${language}.` },
+                { role: "user", content: query }
+            ]
+        });
+        console.log("Multilingual Support:", response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+multilingualSupport("¿Cómo puedo rastrear mi pedido?", "es");
+```
+- **Focus**: Global customer support in different languages.
+
+- **Key Point**: AI’s ability to understand and respond in multiple languages efficiently.
+
+### **7.3.5 Proactive Support Agent (Anticipates Issues)**
+Provides proactive suggestions based on user behavior.
+
+**Python**
+```python
+from openai import OpenAI
+
+# Initialize OpenAI with the API key
+client = OpenAI(
+  api_key='OPENAI_API_KEY',
+)
+
+def proactive_support(user_behavior):
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are a proactive customer support agent who anticipates customer needs."},
+                {"role": "user", "content": "I noticed you’ve been browsing our refund policy page."}
+            ],
+            max_tokens=200
+        )
+        print("Proactive Support:", response.choices[0].message.content)
+    except Exception as e:
+        print("Error:", e)
+
+proactive_support("User browsing refund policy")
+```
+
+**JavaScript**
+```javascript
+import { OpenAI } from "openai";
+
+const openai = new OpenAI({ apiKey: "OPENAI_API_KEY" });
+
+async function proactiveSupport(userBehavior) {
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: "You are a proactive customer support agent who anticipates customer needs." },
+                { role: "user", content: `I noticed you’ve been browsing our refund policy page.` }
+            ]
+        });
+        console.log("Proactive Support:", response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+proactiveSupport();
+```
+- **Focus**: Predicts and addresses customer issues before they escalate.
+
+- **Key Point**: Enhances customer satisfaction by anticipating needs.
+
+### **7.3.6 Data-Driven Support Agent (Uses Analytics for Insights)**
+Provides answers based on data trends and analytics.
+
+**Python**
+```python
+from openai import OpenAI
+
+# Initialize OpenAI with the API key
+client = OpenAI(
+  api_key='OPENAI_API_KEY',
+)
+
+def data_driven_support(query):
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are a data-driven support agent using analytics to provide insights."},
+                {"role": "user", "content": query}
+            ]
+        )
+        print("Data-Driven Support:", response.choices[0].message.content)
+    except Exception as e:
+        print("Error:", e)
+
+data_driven_support("Why is my order delayed more than usual?")
+```
+
+**JavaScript**
+```javascript
+import { OpenAI } from "openai";
+
+const openai = new OpenAI({ apiKey: "OPENAI_API_KEY" });
+
+async function dataDrivenSupport(query) {
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: "You are a data-driven support agent using analytics to provide insights." },
+                { role: "user", content: query }
+            ]
+        });
+        console.log("Data-Driven Support:", response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+dataDrivenSupport("Why is my order delayed more than usual?");
+```
+- **Focus**: Uses data trends to explain patterns, such as delays or outages.
+
+- **Key Point**: Leverages historical data for more informed responses.
 
 ### **Alternative: Using Google Gemini API for the Chatbot**
 - Gemini API can be used for a more **multi-modal approach**, integrating text, images, and videos.
 
 ### **Alternative: Using Claude API for the Chatbot**
 - Claude specializes in **structured conversations with high reliability**.
-
-This chatbot can be integrated into web apps, mobile apps, or backend systems for automated customer support.
 
 ## 7.4 Developing a Creative Content Assistant ##
 
@@ -451,7 +758,7 @@ from openai import OpenAI
 
 # Initialize OpenAI with the API key
 client = OpenAI(
-  api_key=OPENAI_API_KEY',  
+  api_key='OPENAI_API_KEY',  
 )
 
 def combat_agent(enemy_status, player_status):

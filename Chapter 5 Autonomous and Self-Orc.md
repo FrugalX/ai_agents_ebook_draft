@@ -32,15 +32,16 @@ This structure improves **scalability, efficiency, and fault tolerance** in mult
 
 ```mermaid
 graph TD
-    CEO_Agent -->|Delegates Tasks| Manager_Agent
-    Manager_Agent -->|Manages Subtasks| Worker_Agent
+    CEO_Agent -->|Assigns Tasks| Worker_Agent1
+    CEO_Agent -->|Assigns Tasks| Worker_Agent2
+    CEO_Agent -->|Assigns Tasks| Worker_Agent3
+    Worker_Agent1 -->|Sends Response| CEO_Agent
+    Worker_Agent2 -->|Sends Response| CEO_Agent
+    Worker_Agent3 -->|Sends Response| CEO_Agent
+    CEO_Agent -->|Provides Feedback| Worker_Agent1
+    CEO_Agent -->|Provides Feedback| Worker_Agent2
+    CEO_Agent -->|Provides Feedback| Worker_Agent3
 ```
-
-### AI Agentic Roadmaps: OpenAI, Gemini, and Mistral
-The development of autonomous AI agents is evolving rapidly, with multiple companies introducing agent-based architectures:
-- **OpenAI Agents SDK & Responses API:** Enables multi-turn, autonomous agent workflows with dynamic function calling, persistent memory, and tool use.
-- **Gemini’s API:** Designed for **multi-modal planning and reasoning**, supporting agent-based architectures within Google’s ecosystem.
-- **Mistral’s Models:** Focus on open-weight, efficient AI models for developing customizable self-orchestrating systems.
 
 ### Comparison Table:
 
@@ -51,7 +52,12 @@ The development of autonomous AI agents is evolving rapidly, with multiple compa
 | Resilience | Lower | Higher |
 | Complexity | Simplified for agents | Handled by individual agents |
 
-## 5.3 Example: An Event Planning System Using Multiple Agents
+## 5.3 Examples Using Multiple Agents
+The examples below include a central decision-making agent (the CEO) that delegates tasks to specialized agents, incorporates agent-to-agent communication, and establishes a feedback loop for dynamic task management.
+
+The orchestrator (Task Manager) assigns tasks to specialized agents and handles the flow of information between agents and the CEO. The CEO Agent (Strategic Decision-Maker) analyzes the agents' outputs and makes strategic decisions, provides feedback, and directs further tasks if needed.
+
+These examples combine orchestration and autonomy.
 
 ### 5.3.1 JavaScript: Event Planner with Autonomous Sub-Agents
 This example demonstrates a hierarchical agent system where a **CEO-Agent** delegates tasks to specialized **Worker-Agents**.
@@ -59,27 +65,66 @@ This example demonstrates a hierarchical agent system where a **CEO-Agent** dele
 ```javascript
 import { OpenAI } from "openai";
 
-const openai = new OpenAI({ apiKey: "YOUR_API_KEY" });
-const workerAgents = ["Venue Agent", "Catering Agent", "Schedule Agent"];
+const openai = new OpenAI({ apiKey: 'OPENAI_API_KEY' });
 
-async function ceoAgentDelegation() {
-  let tasks = {
-    "Venue Agent": "Find a suitable venue for 100 people.",
-    "Catering Agent": "Plan a menu for lunch and dinner.",
-    "Schedule Agent": "Draft an agenda for a 1-day conference."
-  };
+// Orchestrator: Assigns tasks to different agents
+async function orchestrator() {
+    const tasks = {
+        "Venue Agent": "Find a suitable venue for 100 people.",
+        "Catering Agent": "Plan a menu for lunch and dinner.",
+        "Schedule Agent": "Draft an agenda for a 1-day conference."
+    };
 
-  for (const agent of workerAgents) {
-    const response = await openai.beta.agents.create({
-      name: agent,
-      instructions: `Task: ${tasks[agent]}`
-    });
-    
-    console.log(`${agent} Response: ${response.instructions}`);
-  }
+    const agentResponses = {};
+
+    for (const [agent, task] of Object.entries(tasks)) {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: `You are ${agent}, responsible for: ${task}` },
+                { role: "user", content: task }
+            ]
+        });
+        agentResponses[agent] = response.choices[0].message.content;
+        console.log(`${agent} Response: ${agentResponses[agent]}`);
+    }
+
+    // Pass responses to the CEO for strategic decisions
+    ceoAgent(agentResponses);
 }
 
-ceoAgentDelegation();
+// CEO Agent: Analyzes responses and provides feedback
+async function ceoAgent(agentResponses) {
+    console.log("\n--- CEO Analysis ---");
+
+    for (const [agent, response] of Object.entries(agentResponses)) {
+        let feedback = null;
+
+        if (response.toLowerCase().includes("venue")) {
+            feedback = "Please include details on the venue's accessibility and amenities.";
+        } else if (response.toLowerCase().includes("menu")) {
+            feedback = "Suggest options for dietary restrictions, including vegetarian and gluten-free.";
+        } else if (response.toLowerCase().includes("agenda")) {
+            feedback = "Add time slots for networking breaks and keynote speeches.";
+        }
+
+        if (feedback) {
+            const feedbackResponse = await openai.chat.completions.create({
+                model: "gpt-4o-mini",
+                messages: [
+                    { role: "system", content: `You are ${agent}, responding to the CEO's feedback.` },
+                    { role: "user", content: feedback }
+                ]
+            });
+            console.log(`Feedback for ${agent}: ${feedbackResponse.choices[0].message.content}`);
+        } else {
+            console.log(`No specific feedback needed for ${agent}.`);
+        }
+    }
+}
+
+// Run the orchestrator
+orchestrator();
 ```
 
 ### 5.3.2 Python: Research Assistants Coordinating Tasks
@@ -88,23 +133,65 @@ This Python example showcases hierarchical autonomy in a research setting.
 ```python
 from openai import OpenAI
 
-client = OpenAI(api_key="YOUR_API_KEY")
+# Initialize OpenAI with the API key
+client = OpenAI(
+  api_key='OPENAI_API_KEY',  
+)
 
-def ceo_agent_research():
+# Orchestrator: Manages task distribution and agent communication
+def orchestrator():
     tasks = {
-        "Agent A": "Research current AI trends in healthcare.",
-        "Agent B": "Summarize recent advancements in natural language processing.",
-        "Agent C": "Find examples of AI-powered robotics in manufacturing."
+        'Agent A': 'Research current AI trends in healthcare.',
+        'Agent B': 'Summarize recent advancements in natural language processing.',
+        'Agent C': 'Find examples of AI-powered robotics in manufacturing.'
     }
 
-    for agent, task in tasks.items():
-        response = client.beta.agents.create(
-            name=agent,
-            instructions=task
+    # Assign tasks to agents
+    agent_responses = {}
+    for agent_name, task in tasks.items():
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": f"You are {agent_name}, an AI assistant specializing in {task}."},
+                {"role": "user", "content": task}
+            ]
         )
-        print(f"{agent} Response: {response.instructions}")
+        agent_responses[agent_name] = response.choices[0].message.content
+        print(f"{agent_name} Response: {agent_responses[agent_name]}")
 
-ceo_agent_research()
+    # Pass responses to the CEO for strategic analysis
+    ceo_agent(agent_responses)
+
+# CEO Agent: Makes strategic decisions based on agent responses
+def ceo_agent(agent_responses):
+    print("\n--- CEO Analysis ---")
+
+    # Example strategic decision-making
+    for agent, response in agent_responses.items():
+        feedback = None  # Initialize feedback to handle cases where no condition matches
+
+        if "AI trends" in response:
+            print(f"{agent}: Requires deeper analysis on healthcare applications.")
+            feedback = "Expand on how AI is being applied specifically in healthcare diagnostics."
+        elif "robotics" in response:
+            print(f"{agent}: Needs more detail on robotics innovations.")
+            feedback = "Include specific case studies of recent robotics implementations."
+
+        # Providing feedback
+        if feedback:
+            feedback_response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[
+                    {"role": "system", "content": f"You are {agent}, an AI assistant specializing in the same field as before."},
+                    {"role": "user", "content": feedback}
+                ]
+            )
+            print(f"Feedback for {agent}: {feedback_response.choices[0].message.content}")
+        else:
+            print(f"No specific feedback needed for {agent}.")
+
+# Run the orchestrator
+orchestrator()
 ```
 
 ## 5.4 Challenges in Building Self-Orchestrated Systems

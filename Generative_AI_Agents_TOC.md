@@ -69,11 +69,9 @@
 ## **7. Practical Tutorials**
 7.1 Getting Started with Generative AI Agents
 7.2 Setting Up Your Environment
-7.3 Building an AI Chatbot for Customer Support  
-7.4 Developing a Creative Content Assistant  
-7.5 Creating a Multi-Agent News Aggregator  
-7.6 Designing a Self-Orchestrated Research Tool  
-7.7 Designing Dynamic Games with AI-Powered Agents  
+7.3 Empowering Customer Experiences with AI Support Agents  
+7.4 Generative AI Agents in Education & E-Learning
+7.5 Designing Dynamic Games with AI-Powered Agents  
 
 ---
 

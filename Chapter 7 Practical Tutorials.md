@@ -15,7 +15,7 @@ pip install openai anthropic google-generativeai langchain
 ### API Keys
 Obtain API keys from OpenAI (for the Agents SDK & Responses API), Anthropic (Claude API), and Google (Gemini API) for open-source LLMs.
 
-## 7.3  Building An AI Chatbot for Customer Support
+## 7.3 Empowering Customer Experiences with AI Support Agents
 
 ### **Learning Outcome**
 By the end of this tutorial, you will have a fully functional AI chatbot capable of handling customer queries efficiently. The chatbot will be implemented using **OpenAI’s Agents SDK**, **Gemini API**, and **Claude API**, with both **Python and JavaScript examples**.
@@ -38,10 +38,6 @@ graph TD
 ```
 
 The diagram illustrates a **Customer Support System** powered by various specialized AI agents, all designed to enhance the customer experience. At the center is the **Support System**, which manages multiple agents, each focusing on distinct aspects of customer support. The **Basic Support Agent** handles straightforward queries, providing quick, standardized responses. The **Contextual Support Agent** leverages user history to offer personalized assistance, improving engagement for repeat customers. For technical issues, the **Troubleshooting Agent** steps in, diagnosing problems and guiding users through solutions. To support a global audience, the **Multilingual Support Agent** delivers responses in multiple languages, ensuring accessibility. The **Proactive Support Agent** anticipates customer needs by analyzing behavior patterns, offering proactive assistance even before issues arise. Lastly, the **Data-Driven Support Agent** analyzes trends and historical data to deliver insightful, informed responses. Each of these agents communicates seamlessly with the customer, ensuring a comprehensive, responsive support system.
-
-### **Step 1: Setting Up the AI Chatbot**
-- Choose your AI provider (OpenAI, Gemini, or Claude).
-- Define chatbot instructions and expected behavior.
 
 ### **7.3.1 Basic Customer Support Chatbot**
 Handles FAQs and basic queries.
@@ -385,57 +381,212 @@ dataDrivenSupport("Why is my order delayed more than usual?");
 ### **Alternative: Using Claude API for the Chatbot**
 - Claude specializes in **structured conversations with high reliability**.
 
-## 7.4 Developing a Creative Content Assistant ##
+## 7.4  Generative AI Agents in Education & E-Learning ##
 
 ### **Learning Outcome**
-By the end of this tutorial, you will develop an AI-powered content assistant capable of generating creative writing pieces like stories, blog posts, and social media captions.
+By the end of these tutorials, you will learn how to create Generative AI agents for personalized learning, dynamic quiz generation, and language learning support. You’ll gain hands-on experience with tools like LangChain and OpenAI’s API, enabling you to build interactive, adaptive educational applications. Additionally, you’ll understand how to structure AI agents for scalability and apply them effectively in diverse e-learning environments.
 
 ```mermaid
-sequenceDiagram
-    participant User
-    participant AI_Assistant
-    participant Research_API
-
-    User->>AI_Assistant: Provide topic request
-    AI_Assistant->>AI_Assistant: Retrieve writing style/memory
-    AI_Assistant->>Research_API: Fetch related info (optional)
-    Research_API-->>AI_Assistant: Return research data
-    AI_Assistant-->>User: Generate creative content
+graph TD
+    Student -->|Interacts with| LearningPlatform
+    LearningPlatform -->|Manages| PersonalizedLearningAgent
+    LearningPlatform -->|Manages| QuizGenerationAgent
+    LearningPlatform -->|Manages| LanguageLearningAgent
+    PersonalizedLearningAgent -->|Adapts content based on| StudentProfile
+    QuizGenerationAgent -->|Generates quizzes for| Student
+    LanguageLearningAgent -->|Supports language practice for| Student
 ```
 
-### **Step 1: Setting Up the Content Assistant**
-- Choose your AI provider (OpenAI, Gemini, or Claude).
-- Define creative writing instructions and expected outputs.
+**Student interacts with the Learning Platform, which serves as the central hub.
 
-### **Python: AI-Powered Creative Writer (OpenAI’s GPT-4 Turbo)**
+The platform manages three AI agents:
+
+- **Personalized Learning Agent** adapts educational content based on the student’s profile and learning preferences.
+
+- **Quiz Generation Agent** creates dynamic quizzes tailored to the student’s progress and topic mastery.
+
+- **Language Learning Agent** provides interactive language practice, including vocabulary, grammar, and conversational exercises.
+
+Each agent interacts with the student in a way that enhances personalized learning outcomes.
+
+### **7.4.1 Personalized Learning Assistant**
+This tutorial focuses on creating a Personalized Learning Assistant using Generative AI. The assistant adapts learning content based on the student’s pace, preferences, and performance.
+
+**Python**
 ```python
-import openai
+from langchain_openai import ChatOpenAI
+from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
 
-def generate_content(prompt):
-    response = openai.ChatCompletion.create(
-        model="gpt-4-turbo",
-        messages=[{"role": "user", "content": prompt}]
-    )
-    return response["choices"][0]["message"]["content"]
+openai_api_key = 'OPENAI_API_KEY'
 
-print(generate_content("Write a short story about an astronaut on Mars."))
+# Initialize Chat Model
+chat_model = ChatOpenAI(model_name="gpt-4o-mini", openai_api_key=openai_api_key)
+
+# Define Prompt Template
+prompt = PromptTemplate(
+    input_variables=["topic", "learning_level"],
+    template="You are a personalized learning assistant. The student is at {learning_level} level. Explain the topic '{topic}' in a simple, engaging way."
+)
+
+# Initialize LLMChain
+learning_chain = LLMChain(llm=chat_model, prompt=prompt)
+
+# Function to get personalized learning content
+def personalized_learning(topic, learning_level="beginner"):
+    response = learning_chain.run(topic=topic, learning_level=learning_level)
+    print("Learning Assistant Response:", response)
+
+# Example Usage
+personalized_learning("Basics of the Solar System", learning_level="intermediate")
 ```
 
-### **JavaScript: AI-Powered Creative Writer (OpenAI’s GPT-4 Turbo)**
+**JavaScript**
+```javascript
+import { ChatOpenAI } from "@langchain/openai";
+import { PromptTemplate } from "@langchain/core/prompts";
+import { LLMChain } from "langchain/chains";
+
+const chatModel = new ChatOpenAI({
+    modelName: "gpt-4o-mini",
+    openai_api_key: 'OPENAI_API_KEY',
+});
+
+const prompt = new PromptTemplate({
+    template: "You are a personalized learning assistant. The student is at {learning_level} level. Explain the topic '{topic}' in a simple, engaging way.",
+    inputVariables: ["topic", "learning_level"],
+});
+
+const learningChain = new LLMChain({ llm: chatModel, prompt: prompt });
+
+// Function to get personalized learning content
+async function personalizedLearning(topic, learningLevel = "beginner") {
+    try {
+        const response = await learningChain.invoke({ topic, learning_level: learningLevel });
+        console.log("Learning Assistant Response:", response);
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+// Example Usage
+personalizedLearning("Basics of the Solar System", "intermediate");
+```
+
+### **7.4.2 Automated Quiz Generator**
+This tutorial focuses on creating an Automated Quiz Generator using Generative AI. The system generates quizzes based on learning content, adapting to different difficulty levels and formats.
+
+**Python**
+```python
+from openai import OpenAI
+
+# Initialize OpenAI with the API key
+client = OpenAI(
+  api_key='OPENAI_API_KEY',  
+)
+
+# Automated Quiz Generator
+def generate_quiz(topic, difficulty="medium"):
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are an automated quiz generator that creates quizzes on educational topics."},
+                {"role": "user", "content": f"Generate a {difficulty} difficulty quiz on '{topic}' with 5 questions, including multiple-choice and true/false questions."}
+            ],
+            max_tokens=300
+        )
+        print("Generated Quiz:\n", response.choices[0].message.content)
+    except Exception as e:
+        print("Error:", e)
+
+# Example Usage
+generate_quiz("The Solar System", difficulty="easy")
+```
+
+**JavaScript**
 ```javascript
 import { OpenAI } from "openai";
 
-const openai = new OpenAI({ apiKey: "YOUR_API_KEY" });
+const openai = new OpenAI({ apiKey: 'OPENAI_API_KEY' });
 
-async function generateContent(prompt) {
-    const response = await openai.chat.completions.create({
-        model: "gpt-4-turbo",
-        messages: [{ role: "user", content: prompt }]
-    });
-    console.log(response.choices[0].message.content);
+// Automated Quiz Generator
+async function generateQuiz(topic, difficulty = "medium") {
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: "You are an automated quiz generator that creates quizzes on educational topics." },
+                { role: "user", content: `Generate a ${difficulty} difficulty quiz on '${topic}' with 5 questions, including multiple-choice and true/false questions.` }
+            ],
+            max_tokens: 300
+        });
+        console.log("Generated Quiz:\n", response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error:", error);
+    }
 }
 
-generateContent("Write a short story about an astronaut on Mars.");
+// Example Usage
+generateQuiz("The Solar System", "easy");
+```
+
+### **7.4.3 Language Learning Assistant**
+This tutorial focuses on creating a Language Learning Assistant using Generative AI. The assistant helps users practice vocabulary, grammar, and conversational skills in a target language.
+
+**Python**
+```python
+from openai import OpenAI
+
+# Initialize OpenAI with the API key
+client = OpenAI(
+  api_key='OPENAI_API_KEY',  
+)
+
+# Language Learning Assistant
+def language_practice(topic, language="Spanish", skill_level="beginner"):
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": f"You are a language learning assistant specializing in {language}. You help users practice vocabulary, grammar, and conversations based on their skill level."},
+                {"role": "user", "content": f"Help me practice {topic} in {language} at a {skill_level} level."}
+            ],
+            max_tokens=200
+        )
+        print("Language Assistant Response:", response.choices[0].message.content)
+    except Exception as e:
+        print("Error:", e)
+
+# Example Usage
+language_practice("ordering food", language="French", skill_level="intermediate")
+```
+
+**JavaScript**
+```javascript
+import { OpenAI } from "openai";
+
+const openai = new OpenAI({ apiKey: 'OPENAI_API_KEY' });
+
+// Language Learning Assistant
+async function languagePractice(topic, language = "Spanish", skillLevel = "beginner") {
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: `You are a language learning assistant specializing in ${language}. You help users practice vocabulary, grammar, and conversations based on their skill level.` },
+                { role: "user", content: `Help me practice ${topic} in ${language} at a ${skillLevel} level.` }
+            ],
+            max_tokens: 200
+        });
+        console.log("Language Assistant Response:", response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+// Example Usage
+languagePractice("ordering food", "French", "intermediate");
 ```
 
 ### **Alternative: Using Google Gemini API for Content Generation**
@@ -444,133 +595,7 @@ generateContent("Write a short story about an astronaut on Mars.");
 ### **Alternative: Using Claude API for Structured Content Writing**
 - Claude excels in creating **coherent, structured, and well-formed content** across different domains.
 
-This content assistant can be integrated into **blog platforms, social media management tools, or creative writing applications** to automate content production.
-
-## 7.5 Creating a Multi-Agent News Aggregator
-
-### **Learning Outcome**
-By the end of this tutorial, you will build a **multi-agent system** that gathers, summarizes, and organizes news articles from different sources.
-
-```mermaid
-graph TD
-    User -->|Request News| NewsAggregator
-    NewsAggregator -->|Fetch| NewsScraper
-    NewsScraper -->|Retrieve Data| NewsAPIs
-    NewsAggregator -->|Summarize| Summarizer
-    Summarizer -->|Categorize| Categorizer
-    Categorizer -->|Deliver| User
-```
-
-### **Step 1: Understanding Multi-Agent Collaboration**
-- **Fetching Agent**: Retrieves news articles from APIs like NewsAPI.
-- **Summarization Agent**: Condenses information for easier consumption.
-- **Categorization Agent**: Sorts articles into relevant topics.
-
-### **Python: Multi-Agent News Aggregator Using AutoGen**
-```python
-from autogen import UserProxyAgent, AssistantAgent
-
-def news_aggregator():
-    fetch_agent = AssistantAgent(name="NewsFetcher")
-    summary_agent = AssistantAgent(name="Summarizer")
-    user = UserProxyAgent(name="User", human_input_mode="NEVER")
-
-    user.initiate_chat(
-        fetch_agent, message="Retrieve top tech news articles."
-    )
-    user.initiate_chat(
-        summary_agent, message="Summarize the retrieved articles."
-    )
-
-news_aggregator()
-```
-
-### **JavaScript: Multi-Agent News Aggregator Using LangChain**
-```javascript
-import { ChatOpenAI } from "langchain/chat_models";
-
-const model = new ChatOpenAI({ modelName: "gpt-4", temperature: 0.7 });
-
-async function fetchNews() {
-    const response = await model.call("Retrieve top tech news articles.");
-    console.log(response);
-}
-fetchNews();
-```
-
-### **Alternative Approaches**
-- **Google Gemini API**: For **multi-modal news aggregation**, incorporating **text and images**.
-- **Claude API**: Ideal for structured content summarization.
-
-This news aggregator can be integrated into **news websites, RSS readers, or AI-driven research tools** for automated news curation.
-
-## 7.6 Designing a Self-Orchestrated Research Tool
-
-### **Learning Outcome**
-By the end of this tutorial, you will have built a **self-orchestrating research agent** capable of fetching, analyzing, and summarizing research papers using AI.
-
-```mermaid
-sequenceDiagram
-    participant User
-    participant Research_Agent
-    participant PaperDB
-    participant Summarizer
-
-    User->>Research_Agent: Submit research query
-    Research_Agent->>PaperDB: Retrieve academic papers
-    PaperDB-->>Research_Agent: Send paper data
-    Research_Agent->>Summarizer: Summarize findings
-    Summarizer-->>User: Provide structured research report
-```
-
-### **Step 1: Understanding Multi-Agent Research Workflows**
-A self-orchestrated research tool automates literature review, data analysis, and summarization.
-
-- **Research Fetching Agent**: Retrieves relevant academic papers.
-- **Summarization Agent**: Extracts key insights from long papers.
-- **Trend Analysis Agent**: Identifies recurring themes and trends.
-
-### **Python: Self-Orchestrating Research Assistant with AutoGen**
-```python
-from autogen import UserProxyAgent, AssistantAgent
-
-def research_assistant():
-    fetch_agent = AssistantAgent(name="PaperFetcher")
-    summary_agent = AssistantAgent(name="Summarizer")
-    analysis_agent = AssistantAgent(name="TrendAnalyzer")
-    user = UserProxyAgent(name="User", human_input_mode="NEVER")
-
-    user.initiate_chat(
-        fetch_agent, message="Find recent research papers on deep learning."
-    )
-    user.initiate_chat(
-        summary_agent, message="Summarize the main findings from the papers."
-    )
-    user.initiate_chat(
-        analysis_agent, message="Analyze trends from the summarized research."
-    )
-
-research_assistant()
-```
-
-### **JavaScript: Research Assistant with LangChain**
-```javascript
-import { ChatOpenAI } from "langchain/chat_models";
-
-const model = new ChatOpenAI({ modelName: "gpt-4", temperature: 0.7 });
-
-async function researchAssistant() {
-    const response = await model.call("Find recent research papers on deep learning.");
-    console.log(response);
-}
-researchAssistant();
-```
-
-### **Alternative Approaches**
-- **Google Gemini API**: Enables multi-modal research by incorporating **text, charts, and graphs**.
-- **Claude API**: Best for **structured document summarization** and in-depth analysis.
-
-This research tool can be integrated into **academic search engines, AI-driven research assistants, or corporate knowledge bases**.
+In these tutorials, we've explored how Generative AI agents can transform the landscape of education and e-learning. From personalized learning assistants that adapt content to individual needs, to dynamic quiz generators and language learning companions, these AI-driven tools are redefining how knowledge is delivered and engaged with. By leveraging frameworks like LangChain and OpenAI’s latest models, we've demonstrated practical implementations that showcase both the versatility and potential of AI in enhancing educational experiences. As you continue to experiment and build upon these examples, you'll find endless possibilities to create more interactive, responsive, and personalized learning environments.
 
 ## 7.7 Designing Dynamic Games with AI-Powered Agents
 

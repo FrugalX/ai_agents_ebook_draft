@@ -58,7 +58,7 @@ print(agent.interact("Give me an example of how they're used."))
 ```javascript
 import { OpenAI } from "openai";
 
-const openai = new OpenAI({ apiKey: "YOUR_API_KEY" });
+const openai = new OpenAI({ apiKey: 'OPENAI_API_KEY' });
 
 class ResearchAssistantAgent {
   constructor() {
@@ -71,7 +71,7 @@ class ResearchAssistantAgent {
     this.memory.push({ role: "user", content: userInput });
 
     const response = await openai.chat.completions.create({
-      model: "gpt-4-turbo",
+      model: "gpt-4o-mini",
       messages: this.memory,
     });
 
@@ -83,6 +83,7 @@ class ResearchAssistantAgent {
 }
 
 const agent = new ResearchAssistantAgent();
+
 (async () => {
   console.log(await agent.interact("What are large language models?"));
   console.log(await agent.interact("Give me an example of how they're used."));
@@ -114,32 +115,40 @@ print(agent.interact("What are some common use cases?"))
 
 **JavaScript**
 ```javascript
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import OpenAI from "openai"; // for Gemini's OpenAI API compatibility
 
-const genAI = new GoogleGenerativeAI("YOUR_GEMINI_API_KEY");
+const openai = new OpenAI({
+    apiKey: 'GEMINI_API_KEY',
+    baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"
+});
 
 class GeminiResearchAgent {
-  constructor() {
-    this.model = genAI.getGenerativeModel({ model: "gemini-pro" });
-    this.chat = null;
+  constructor(model = "gemini-2.0-flash") {
+    this.model = model;
+    this.messages = [
+      {
+        role: "system",
+        content: "You are a helpful research assistant who provides concise and clear answers.",
+      },
+    ];
   }
 
-  async init() {
-    this.chat = await this.model.startChat({
-      systemInstruction: "You are a helpful research assistant who provides concise and clear answers.",
-      history: []
+  async interact(userInput) {
+    this.messages.push({ role: "user", content: userInput });
+
+    const response = await openai.chat.completions.create({
+      model: this.model,
+      messages: this.messages,
     });
-  }
 
-  async interact(prompt) {
-    const result = await this.chat.sendMessage(prompt);
-    return result.response.text();
+    const message = response.choices[0].message.content;
+    this.messages.push({ role: "assistant", content: message });
+    return message;
   }
 }
 
 const run = async () => {
   const agent = new GeminiResearchAgent();
-  await agent.init();
   console.log(await agent.interact("Explain generative AI."));
   console.log(await agent.interact("What are some common use cases?"));
 };
@@ -160,7 +169,9 @@ This is where frameworks like **LangChain** help: they provide structured memory
 | Long-Term        | Cross-session (DB)        | Remembering user preferences or past queries |
 | Retrieval Memory | Embedded semantic search  | Q&A over large documents                     |
 
-### Example: Short-Term Conversational Memory with LangChain (Python)
+### Example: Short-Term Conversational Memory with LangChain
+
+**Python**
 ```python
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
@@ -173,6 +184,27 @@ agent = ConversationChain(llm=llm, memory=memory)
 
 print(agent.run("Hi, I'm working on an AI project."))
 print(agent.run("Can you remind me what I just said?"))
+```
+
+**JavaScript**
+```javascript
+import { ChatOpenAI } from "@langchain/openai";
+import { ConversationChain } from "langchain/chains";
+import { BufferMemory } from "langchain/memory";
+
+const model = new ChatOpenAI({ modelName: "gpt-4o-mini", openAIApiKey: 'OPENAI_API_KEY' });
+const memory = new BufferMemory();
+const conversation = new ConversationChain({ llm: model, memory });
+
+async function chat() {
+    const response1 = await conversation.call({ input: "What is the capital of France?" });
+    console.log(response1.response);
+
+    const followUpResponse = await conversation.call({ input: "And what is its population?" });
+    console.log(followUpResponse.response);
+}
+
+chat();
 ```
 
 ## 3.5 Persistent Q&A Agent with Vector Memory (LangChain + FAISS)

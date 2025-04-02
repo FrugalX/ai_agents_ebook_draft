@@ -73,61 +73,82 @@ MCP provides a standardized approach to **context management** in multi-agent co
 Simulating a conversation between two agents using Node.js and LangChain:
 
 ```javascript
-import { ChatOpenAI } from "langchain/chat_models";
-import { AgentExecutor, initializeAgentExecutorWithOptions } from "langchain/agents";
-import { OpenAI } from "langchain/llms";
+import { ChatOpenAI } from "@langchain/openai";
+import { initializeAgentExecutorWithOptions } from 'langchain/agents';
 
-const model = new ChatOpenAI({ modelName: "gpt-4", temperature: 0.7 });
-const tools = []; // Define tools if needed
+const model = new ChatOpenAI({
+  modelName: 'gpt-4o-mini',
+  openAIApiKey: 'OPENAI_API_KEY',
+});
+const tools = [];
+
+const executor = await initializeAgentExecutorWithOptions(tools, model, {
+  agentType: 'chat-conversational-react-description', 
+  verbose: false,
+});
 
 async function simulateConversation() {
-  const executor = await initializeAgentExecutorWithOptions(tools, model, {
-    agentType: "chat-conversational",
-    verbose: true,
-  });
-  
-  const response = await executor.call({ input: "Agent A: How can I help you today?" });
-  console.log(response.output);
+  const initialInput = 'Agent A: How can I assist you today?';
+
+  // Start the conversation
+  const response = await executor.call({ input: initialInput });
+  console.log('agent A:', response.output);
+
+  // Simulate a response from Agent B
+  const agentBInput = 'Agent B: I need assistance with processing data.';
+  const agentBResponse = await executor.call({ input: agentBInput });
+  console.log('AgentB:', agentBResponse.output);
+
+  // Continue the conversation as needed
+  // ...
 }
 
 simulateConversation();
 ```
 
-### 4.3.2 **Python Example: Collaborative Idea Generation with AutoGen**
+### 4.3.2 **Python Example: Collaborative Idea Generation with LangChain**
 
 ```python
-from autogen import AssistantAgent, UserProxyAgent
+from langchain_openai import ChatOpenAI
+from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
 
-def collaborative_idea_generation():
-    assistant = AssistantAgent(name="AgentA")
-    user = UserProxyAgent(name="AgentB", human_input_mode="NEVER")
-    
-    user.initiate_chat(
-        assistant,
-        message="Let's brainstorm ideas for a new AI-powered application."
-    )
+# Initialize the OpenAI model
+llm = ChatOpenAI(model_name="gpt-4o-mini", openai_api_key="OPENAI_API_KEY")
 
-collaborative_idea_generation()
-```
-
-### 4.3.3 **Python Example: Using OpenAI's Agents SDK for Coordination**
-
-```python
-from openai import OpenAI
-
-client = OpenAI()
-
-response = client.beta.agents.create(
-    name="ResearchAgent",
-    instructions="Assist with research by summarizing the latest AI developments."
+# Prompt for Agent A (Idea Generator)
+prompt_generator = PromptTemplate(
+    input_variables=["topic"],
+    template="You are Agent A, a creative AI assistant. Generate innovative ideas for the topic: '{topic}'."
 )
 
-print("Agent Created:", response)
+# Prompt for Agent B (Critique & Refine)
+prompt_critic = PromptTemplate(
+    input_variables=["ideas"],
+    template="You are Agent B, a critical thinker. Review and refine the following ideas: {ideas}. Make them more practical and feasible."
+)
+
+# Chains for both agents
+idea_chain = LLMChain(llm=llm, prompt=prompt_generator)
+critique_chain = LLMChain(llm=llm, prompt=prompt_critic)
+
+# Function to simulate collaborative idea generation
+def collaborative_idea_generation(topic):
+    # Agent A generates ideas
+    raw_ideas = idea_chain.run(topic=topic)
+    
+    # Agent B critiques and refines the ideas
+    refined_ideas = critique_chain.run(ideas=raw_ideas)
+    
+    # Display the output
+    print("💡 **Raw Ideas (Agent A):**")
+    print(raw_ideas)
+    print("\n✅ **Refined Ideas (Agent B):**")
+    print(refined_ideas)
+
+# Example usage
+collaborative_idea_generation("Innovative uses of AI in daily life")
 ```
-
-These examples showcase how AutoGen, OpenAI's Agents SDK, and LangChain facilitate structured agent dialogues and interactivity.
-
----
 
 ## **4.4 When to Use Multi-Agent Systems?**
 
@@ -164,7 +185,7 @@ When selecting an agent framework, consider the following performance characteri
 - **Improves cross-agent collaboration** by ensuring **context persistence** in distributed AI ecosystems.
 - **Enhances scalability** by minimizing unnecessary redundant data exchange.
 
-By integrating modern frameworks like **AutoGen, OpenAI's Agents SDK, and LangChain**, and leveraging **MCP for efficient context sharing**, developers can build robust, scalable, and intelligent agent-based systems with structured interactions and enhanced functionality.
+By integrating modern frameworks like **OpenAI and LangChain**, and leveraging **MCP for efficient context sharing**, developers can build robust, scalable, and intelligent agent-based systems with structured interactions and enhanced functionality.
 
 
 ---

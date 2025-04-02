@@ -49,7 +49,7 @@
 ## **5. Autonomous and Self-Orchestrated Multi-Agent Systems**
 5.1 What is Autonomy in AI Agents?  
 5.2 Orchestration vs. Autonomy  
-5.3 Example: An Event Planning System Using Multiple Agents  
+5.3 Examples Using Multiple Agents 
    - JavaScript: Event Planner with Autonomous Sub-Agents  
    - Python: Research Assistants Coordinating Tasks 
     

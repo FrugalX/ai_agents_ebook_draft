@@ -102,7 +102,7 @@ Below is an illustrative representation of how AI has evolved over time:
 2. **Install Required Libraries**:
 
    ```bash
-   pip install openai anthropic mistral google-generative-ai
+   pip install openai google-generative-ai
    ```
 
 ---
@@ -132,15 +132,16 @@ print(response["choices"][0]["message"]["content"])
 
 ```javascript
 import { OpenAI } from "openai";
-const openai = new OpenAI({ apiKey: "YOUR_API_KEY" });
+
+const openai = new OpenAI({ apiKey: 'OPENAI_API_KEY' });
 
 async function getResponse() {
     const response = await openai.chat.completions.create({
-        model: "gpt-4-turbo",
+        model: "gpt-4o-mini",
         messages: [
-            { role: "system", content: "You are an assistant that provides weather information." },
-            { role: "user", content: "What's the weather like in New York?" }
-        ]
+            { role: "system", content: "You are a helpful assistant." },
+            { role: "user", content: "What's Generative AI?" }
+        ]   
     });
     console.log(response.choices[0].message.content);
 }
@@ -164,18 +165,25 @@ print(response.text)
 #### **JavaScript Example**:
 
 ```javascript
-import { GoogleGenerativeAI } from "@google/generative-ai";
-const genAI = new GoogleGenerativeAI("YOUR_API_KEY");
+import OpenAI from "openai"; // for Gemini's OpenAI API compatibility
 
-async function getGeminiResponse() {
-    const model = genAI.getGenerativeModel({
-        model: "gemini-1.5-flash",
-        systemInstruction: "You are a knowledgeable physics tutor. Explain complex topics in a clear and concise way."
-    });
-    const result = await model.generateContent("Explain quantum mechanics.");
-    console.log(result.response.text());
-}
-getGeminiResponse();
+const openai = new OpenAI({
+    apiKey: 'GEMINI_API_KEY',
+    baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"
+});
+
+const response = await openai.chat.completions.create({
+    model: "gemini-2.0-flash",
+    messages: [
+        { role: "system", content: "You are a helpful assistant." },
+        {
+            role: "user",
+            content: "Explain quantum mechanics.",
+        },
+    ],
+});
+
+console.log(response.choices[0].message);
 ```
 
 ---
